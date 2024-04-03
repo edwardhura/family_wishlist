@@ -6,6 +6,10 @@
 	],
 	"settings": {
 		"editor.tabSize": 2,
-		"files.insertFinalNewline": true
+		"files.insertFinalNewline": true,
+		"cSpell.words": [
+			"codepaths",
+			"tsbuildinfo"
+		]
 	}
 }

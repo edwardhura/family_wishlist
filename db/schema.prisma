@@ -17,6 +17,7 @@ model Wish {
   title     String
   link      String?
   price     Int?
+  isDone    Boolean   @default(false)
   user      User      @relation(fields: [userUuid], references: [uuid])
   userUuid  String  
   createdAt DateTime  @default(now())

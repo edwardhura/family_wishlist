@@ -1,14 +1,19 @@
 import dotenv from "dotenv"
 import express, { Express, Request, Response } from "express"
 import cors from "cors"
-import { sessionsOauthGoogleHandler } from "./controllers/sessionsController"
+import apiSessionsController from "./controllers/apiSessionsController"
 
 dotenv.config({ path: `.env.${process.env.NODE_ENV}` })
 
 const app: Express = express()
 
 app.use(express.json())
-app.use(cors())
+app.use(cors({
+  origin: process.env.ORIGIN,
+  credentials: true
+}))
+
+app.use('/api/sessions', apiSessionsController)
 
 app.get('/', (req: Request, res: Response) => {
   const vars = [
@@ -19,7 +24,6 @@ app.get('/', (req: Request, res: Response) => {
   res.send(vars)
 })
 
-app.get('/api/sessions/oauth/google', sessionsOauthGoogleHandler)
 
 const port = process.env.PORT || 8000;
 app.listen(port, () => {
