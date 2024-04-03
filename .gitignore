@@ -1,6 +1,7 @@
 /node_modules
 /dist/*
 /src/secrets
+/data/db*
 
 
 .env.development

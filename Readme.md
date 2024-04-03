@@ -16,6 +16,7 @@
             GOOGLE_OAUTH2_REDIRECT_URL="http://localhost:8000/api/sessions/oauth/google"
             GOOGLE_OAUTH2_TOKEN_URL="https://accounts.google.com/o/oauth2/token"
             GOOGLE_OAUTH2_USERINFO_URL="https://www.googleapis.com/oauth2/v1/userinfo"
+            SQLITE_DATABASE_URL="file:./db/dev.db"
         ```
         `${projectRootFolder}/client/.env.${process.env.NODE_ENV}` FILE:
         ```
@@ -25,9 +26,11 @@
             REACT_APP_GOOGLE_OAUTH2_EMAIL_SCOPE="https://www.googleapis.com/auth/userinfo.email"
             REACT_APP_GOOGLE_OAUTH2_PROFILE_SCOPE="https://www.googleapis.com/auth/userinfo.profile"
         ```
-5) Install recommended extensions in VS Code.
+5) Run dev migrations with `yarn migration:dev`
+6) Install recommended extensions in VS Code.
 
 
 ## Run
 
 1) `yarn run dev` or `yarn run dev:debug` for VS code launch debug.
+2) 
