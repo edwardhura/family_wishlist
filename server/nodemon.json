@@ -1,11 +1,11 @@
 {
   "restartable": "rs",
-  "ignore": [".git", "node_modules/**/node_modules"],
+  "ignore": [".git", "node_modules/**/node_modules", "./src/db/migrations", "**/*.db", "**/*.prisma", "**/*.db-journal"],
   "verbose": true,
   "execMap": {
     "ts": "node --require ts-node/register"
   },
-  "watch": ["src/"],
+  "watch": ["./src"],
   "env": {
     "NODE_ENV": "development"
   },

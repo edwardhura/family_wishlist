@@ -1,5 +1,6 @@
 import axios from "axios"
 import qs from 'qs'
+import { logger } from "../libs"
 
 interface GoogleTokensResult {
   id_token: string,
@@ -40,13 +41,13 @@ export const getGoogleOAuthTokens = async (code: string): Promise<GoogleTokensRe
 
     return res.data
   } catch (error: any) {
-    console.error(error.message)
+    logger.error(error)
 
     throw new Error(error.message)
   }
 }
 
-export const getGoogleUser = async ({ id_token, access_token }: {id_token: string, access_token: string }):Promise<GoogleUserResult> => {
+export const getGoogleUser = async ({ id_token, access_token }: GoogleTokensResult): Promise<GoogleUserResult> => {
   const url = process.env.GOOGLE_OAUTH2_USERINFO_URL as string
   const options = { access_token }
   try {
@@ -57,7 +58,7 @@ export const getGoogleUser = async ({ id_token, access_token }: {id_token: strin
     })
     return res.data
   } catch(error: any) {
-    console.error(error.message)
+    logger.error(error)
 
     throw new Error(error.message)
   }

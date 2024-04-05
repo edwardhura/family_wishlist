@@ -9,7 +9,10 @@
 		"files.insertFinalNewline": true,
 		"cSpell.words": [
 			"codepaths",
+			"healthcheck",
+			"pino",
 			"tsbuildinfo"
-		]
+		],
+		"git.ignoreLimitWarning": true
 	}
 }

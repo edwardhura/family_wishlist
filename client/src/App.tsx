@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { LoginLink } from './components';
+import { LoginLink, LogoutLink} from './components'
+import axios from 'axios';
 
 function App() {
+  useEffect(() => {
+    axios.get('/api/users/me', { withCredentials: true })
+  }, [])
+  
+
   return (
     <div className="App">
       <header className="App-header">

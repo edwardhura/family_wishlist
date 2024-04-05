@@ -8,7 +8,7 @@
     - Go to side menu bar "Credentials"
     - Select from "OAuth 2.0 Client IDs" your application or create those application credentials (use `REDIRECT_URL="/api/sessions/oauth/google"`)
     - Download credentials from the application page in "Additional information" (Client ID, Client secret e.t.c)
-    - Use credentials to fill in `.env.${process.env.NODE_ENV}` file
+    - Use credentials to fill in `${projectRootFolder}/server/.env.${process.env.NODE_ENV}` file
         `.env.${process.env.NODE_ENV}` FILE:
         ```
             GOOGLE_OAUTH2_CLIENT_ID="<USE YOUR CLIENT ID>"

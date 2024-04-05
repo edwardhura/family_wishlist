@@ -12,7 +12,6 @@ const getGoogleAuthUrl = () => {
     ].join(" ")
   }
 
-  console.log(options)
   const qs = new URLSearchParams(options)
 
   return `${rootURL}?${qs.toString()}`
