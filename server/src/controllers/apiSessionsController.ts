@@ -14,14 +14,14 @@ router.get('/oauth/google', async (req: Request, res: Response) => {
     // use code to take tokens
     const resultOAuthToken = await getGoogleOAuthTokens(code)
     // use tokens for fetching user profile data and email
-    const { name, id: googleId, email, verified_email: verifiedEmail } = await getGoogleUser(resultOAuthToken)
+    const { name, id: googleId, email, verified_email: verifiedEmail, picture: avatar } = await getGoogleUser(resultOAuthToken)
 
     if (!verifiedEmail) {
       return res.status(403).send("Google account is not verified");
     }
 
     // update/create user with google account information
-    const user = await upsertUserData({ name, googleId, email })
+    const user = await upsertUserData({ name, googleId, email, avatar })
 
     // create/update a session
     await upsertSession({ userUuid: user.uuid, valid: true, userAgent: req.get("user-agent") || ""})

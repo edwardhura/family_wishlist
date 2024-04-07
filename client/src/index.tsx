@@ -3,7 +3,9 @@ import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 import { RouterProvider } from "react-router-dom"
 import Router from './Router'
-import { ChakraProvider, background, extendTheme } from '@chakra-ui/react'
+import { ChakraProvider, extendTheme } from '@chakra-ui/react'
+import { rootApi } from 'rootApi'
+import { ApiProvider } from '@reduxjs/toolkit/query/react'
 
 const theme = extendTheme({
   styles: {
@@ -31,9 +33,11 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <ChakraProvider theme={theme}>
-      <RouterProvider router={Router} />
-    </ChakraProvider>
+    <ApiProvider api={rootApi}>
+      <ChakraProvider theme={theme}>
+        <RouterProvider router={Router} />
+      </ChakraProvider>
+    </ApiProvider>
   </React.StrictMode>
 );
 

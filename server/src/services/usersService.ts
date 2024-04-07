@@ -2,8 +2,9 @@ import { dbClient } from "../db/prismaClient"
 
 interface UserCreateAttributes {
   email: string
-  name: string | null
+  name?: string
   googleId: string
+  avatar?: string
 }
 
 export const upsert = async (userParams: UserCreateAttributes) => {

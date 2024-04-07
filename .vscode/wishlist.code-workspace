@@ -12,6 +12,7 @@
 			"codepaths",
 			"healthcheck",
 			"pino",
+			"reduxjs",
 			"tsbuildinfo"
 		],
 		"git.ignoreLimitWarning": true

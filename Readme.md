@@ -17,7 +17,12 @@
             GOOGLE_OAUTH2_TOKEN_URL="https://accounts.google.com/o/oauth2/token"
             GOOGLE_OAUTH2_USERINFO_URL="https://www.googleapis.com/oauth2/v1/userinfo"
             SQLITE_DATABASE_URL="file:./dev.db"
-            ORIGIN='http://localhost:3000/'
+            ORIGIN='http://localhost:3000'
+            PORT='8000'
+            ACCESS_TOKEN_TTL='15m'
+            REFRESH_TOKEN_TTL='1y'
+            RSA_PRIVATE_KEY="<GENERATED RSA PRIVATE>"
+            RSA_PUBLIC_KEY="<GENERATED RSA PUBLIC>"
         ```
         `${projectRootFolder}/client/.env.${process.env.NODE_ENV}` FILE:
         ```

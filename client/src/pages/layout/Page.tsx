@@ -1,10 +1,22 @@
 import { Box, Container } from '@chakra-ui/react'
-import { Outlet } from 'react-router-dom'
-import { Header } from '../../components'
-
+import { Outlet, useNavigate } from 'react-router-dom'
+import { GlobalLoader, Header } from 'components'
+import { UNAUTHORIZED, useFetchUsersMeQuery } from 'api/usersApi'
+import { useEffect } from 'react'
 
 export const Layout = () => {
+  const navigate = useNavigate ()
+  const { isLoading, isError, error } = useFetchUsersMeQuery()
 
+  useEffect(() => {
+    if (isError && 'status' in error && error.status === UNAUTHORIZED) {
+      navigate('/login')
+    }
+  }, [isError, error])
+
+  if (isLoading) return (
+    <GlobalLoader />
+  )
 
   return (
     <Box minH="100vh">
