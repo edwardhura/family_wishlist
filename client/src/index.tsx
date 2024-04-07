@@ -1,15 +1,39 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { RouterProvider } from "react-router-dom"
+import Router from './Router'
+import { ChakraProvider, background, extendTheme } from '@chakra-ui/react'
+
+const theme = extendTheme({
+  styles: {
+    global: {
+      body: {
+        background: 'gray.200',
+      },
+      a: {
+        color: 'teal.500'
+      }
+    }
+  },
+  components: {
+    Link: {
+      baseStyle: {
+        fontWeight: 'bold',
+        color: 'teal.500'
+      }
+    }
+  }
+})
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <ChakraProvider theme={theme}>
+      <RouterProvider router={Router} />
+    </ChakraProvider>
   </React.StrictMode>
 );
 

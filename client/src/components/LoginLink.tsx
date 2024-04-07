@@ -1,11 +1,12 @@
 import getGoogleAuthUrl from '../utils/getGoogleAuthUrl'
+import { Link } from '@chakra-ui/react'
 
 export const LoginLink = () => {
   const loginUrl = getGoogleAuthUrl()
 
   return (
-    <a className="App-link" href={loginUrl}>
+    <Link href={loginUrl}>
       Login
-    </a>
+    </Link>
   )
 }

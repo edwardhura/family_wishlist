@@ -8,6 +8,7 @@
 		"editor.tabSize": 2,
 		"files.insertFinalNewline": true,
 		"cSpell.words": [
+			"Chakra",
 			"codepaths",
 			"healthcheck",
 			"pino",
