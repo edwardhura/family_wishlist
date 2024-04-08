@@ -1,6 +1,6 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { RouterProvider } from "react-router-dom"
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import { RouterProvider } from 'react-router-dom'
 import Router from './Router'
 import { ChakraProvider, extendTheme } from '@chakra-ui/react'
 import { rootApi } from './rootApi'
@@ -13,23 +13,22 @@ const theme = extendTheme({
         background: 'gray.200',
       },
       a: {
-        color: 'teal.500'
-      }
-    }
+        color: 'teal.500',
+      },
+    },
   },
   components: {
     Link: {
       baseStyle: {
         fontWeight: 'bold',
-        color: 'teal.500'
-      }
-    }
-  }
+        color: 'teal.500',
+      },
+    },
+  },
 })
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
+const root = ReactDOM.createRoot(document.getElementById('root')!)
+
 root.render(
   <React.StrictMode>
     <ApiProvider api={rootApi}>
@@ -37,5 +36,5 @@ root.render(
         <RouterProvider router={Router} />
       </ChakraProvider>
     </ApiProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 )

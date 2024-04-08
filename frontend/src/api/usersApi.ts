@@ -1,6 +1,6 @@
-import { rootApi } from "rootApi"
+import { rootApi } from 'rootApi'
 
-export const UNAUTHORIZED: number = 401
+export const UNAUTHORIZED = 401
 
 interface UserResponse {
   uuid: string
@@ -15,9 +15,9 @@ interface UserResponse {
 const api = rootApi.injectEndpoints({
   endpoints: (build) => ({
     fetchUsersMe: build.query<UserResponse, void>({
-      query: () => ({ url: 'users/me', method: 'GET' })
-    })
-  })
+      query: () => ({ url: 'users/me', method: 'GET' }),
+    }),
+  }),
 })
 
 export const { useFetchUsersMeQuery } = api

@@ -1,15 +1,15 @@
-import { Root, Login, Layout } from './pages'
-import { createBrowserRouter } from "react-router-dom"
+import { Login, Layout } from './pages'
+import { createBrowserRouter } from 'react-router-dom'
 
 const Router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     Component: Layout,
   },
   {
-    path: "/login",
+    path: '/login',
     Component: Login,
-  }
+  },
 ])
 
 export default Router
