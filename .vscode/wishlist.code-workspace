@@ -7,6 +7,18 @@
 	"settings": {
 		"editor.tabSize": 2,
 		"files.insertFinalNewline": true,
+		"git.ignoreLimitWarning": true,
+		"eslint.enable": true,
+		"eslint.run": "onType",
+		"prettier.enable": true,
+		"[typescript]": {
+			"editor.defaultFormatter": "esbenp.prettier-vscode",
+			"editor.formatOnSave": true
+		},
+		"[typescriptreact]": {
+			"editor.defaultFormatter": "esbenp.prettier-vscode",
+			"editor.formatOnSave": true
+		},
 		"cSpell.words": [
 			"Chakra",
 			"codepaths",
@@ -15,6 +27,5 @@
 			"reduxjs",
 			"tsbuildinfo"
 		],
-		"git.ignoreLimitWarning": true
 	}
 }

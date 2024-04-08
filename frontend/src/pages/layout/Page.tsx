@@ -3,6 +3,7 @@ import { Outlet, useNavigate } from 'react-router-dom'
 import { GlobalLoader, Header } from 'components'
 import { UNAUTHORIZED, useFetchUsersMeQuery } from 'api/usersApi'
 import { useEffect } from 'react'
+import { Oops } from 'pages/oops/Page'
 
 export const Layout = () => {
   const navigate = useNavigate()
@@ -14,19 +15,25 @@ export const Layout = () => {
     }
   }, [isError, error, navigate])
 
-  if (isLoading) return <GlobalLoader />
+  if (isError) return <Oops />
 
   return (
-    <Box minH="100vh">
-      <Header />
-      <Container as="main" w="lg">
-        There are many benefits to a joint design and development system. Not
-        only does it bring benefits to the design team, but it also brings
-        benefits to engineering teams. It makes sure that our experiences have a
-        consistent look and feel, not just in our design specs, but in
-        production
-        <Outlet />
-      </Container>
-    </Box>
+    <>
+      {isLoading ? (
+        <GlobalLoader />
+      ) : (
+        <Box minH="100vh">
+          <Header />
+          <Container as="main" w="lg">
+            There are many benefits to a joint design and development system.
+            Not only does it bring benefits to the design team, but it also
+            brings benefits to engineering teams. It makes sure that our
+            experiences have a consistent look and feel, not just in our design
+            specs, but in production
+            <Outlet />
+          </Container>
+        </Box>
+      )}
+    </>
   )
 }

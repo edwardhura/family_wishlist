@@ -29,11 +29,11 @@ export const Login = () => {
   return (
     <Container w="lg" minH="100vh" centerContent>
       <AbsoluteCenter>
-        <Card>
+        <Card background="teal.50" borderWidth={1} borderColor="teal.200">
           <CardHeader>
             <Heading size={'md'}>Please login with Google Account</Heading>
           </CardHeader>
-          <Divider color="gray.400" />
+          <Divider color="teal.200" />
           <CardBody>
             <Center>
               <LoginLink />
