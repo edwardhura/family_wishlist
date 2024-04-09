@@ -1,7 +1,11 @@
-import { Request, Response, NextFunction } from "express"
-import { verifyJwt } from "../libs"
+import { Request, Response, NextFunction } from 'express'
+import { verifyJwt } from '../libs'
 
-export const deserializeUser = (req: Request, res: Response, next: NextFunction) => {
+export const deserializeUser = (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   const accessToken = req.cookies?.accessToken
   const refreshToken = req.cookies.refreshToken
 

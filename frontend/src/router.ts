@@ -1,7 +1,7 @@
 import { Login, Layout } from './pages'
 import { createBrowserRouter } from 'react-router-dom'
 
-const Router = createBrowserRouter([
+export const router = createBrowserRouter([
   {
     path: '/',
     Component: Layout,
@@ -11,5 +11,3 @@ const Router = createBrowserRouter([
     Component: Login,
   },
 ])
-
-export default Router

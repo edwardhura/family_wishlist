@@ -1,10 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { RouterProvider } from 'react-router-dom'
-import Router from './Router'
+import { router } from './router'
 import { ChakraProvider, extendTheme } from '@chakra-ui/react'
-import { rootApi } from './rootApi'
+import { GlobalLoader } from 'components'
 import { ApiProvider } from '@reduxjs/toolkit/query/react'
+import { rootApi } from 'rootApi'
 
 const theme = extendTheme({
   styles: {
@@ -33,7 +34,7 @@ root.render(
   <React.StrictMode>
     <ApiProvider api={rootApi}>
       <ChakraProvider theme={theme}>
-        <RouterProvider router={Router} />
+        <RouterProvider router={router} fallbackElement={<GlobalLoader />} />
       </ChakraProvider>
     </ApiProvider>
   </React.StrictMode>,

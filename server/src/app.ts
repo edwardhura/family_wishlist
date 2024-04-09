@@ -1,12 +1,11 @@
-import dotenv from "dotenv"
+import dotenv from 'dotenv'
 dotenv.config({ path: `.env.${process.env.NODE_ENV}` })
 
-import express, { Express } from "express"
-import cors from "cors"
-import cookieParser from "cookie-parser"
-import routes from "./routes"
-import path from "path"
-import { logger } from "./libs"
+import express, { Express } from 'express'
+import cors from 'cors'
+import cookieParser from 'cookie-parser'
+import routes from './routes'
+import { logger } from './libs'
 import { deserializeUser } from './middleware'
 
 const port = process.env.PORT || 8000

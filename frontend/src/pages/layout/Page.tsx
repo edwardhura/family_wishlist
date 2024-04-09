@@ -1,19 +1,11 @@
 import { Box, Container } from '@chakra-ui/react'
-import { Outlet, useNavigate } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 import { GlobalLoader, Header } from 'components'
-import { UNAUTHORIZED, useFetchUsersMeQuery } from 'api/usersApi'
-import { useEffect } from 'react'
+import { useFetchUsersMeQuery } from 'api/usersApi'
 import { Oops } from 'pages/oops/Page'
 
 export const Layout = () => {
-  const navigate = useNavigate()
-  const { isLoading, isError, error } = useFetchUsersMeQuery()
-
-  useEffect(() => {
-    if (isError && 'status' in error && error.status === UNAUTHORIZED) {
-      navigate('/login')
-    }
-  }, [isError, error, navigate])
+  const { isLoading, isError } = useFetchUsersMeQuery()
 
   if (isError) return <Oops />
 

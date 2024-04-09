@@ -23,7 +23,8 @@
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
     "pino": "^8.19.0",
-    "pino-pretty": "^11.0.0"
+    "pino-pretty": "^11.0.0",
+    "prettier": "^3.2.5"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
