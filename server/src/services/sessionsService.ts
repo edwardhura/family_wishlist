@@ -1,6 +1,13 @@
+import { Prisma } from '@prisma/client'
 import { dbClient } from '../db/prismaClient'
 import { verifyJwt, signJwt } from '../libs'
 import { find as findUser } from './usersService'
+
+const sessionSelect: Prisma.SessionSelect = {
+  userUuid: true,
+  valid: true,
+  userAgent: true,
+}
 
 export const upsertSession = async ({
   userUuid,
@@ -38,6 +45,7 @@ export const reIssueAccessToken = async ({
   const { session: sessionClient } = dbClient
   const session = await sessionClient.findUnique({
     where: { userUuid: decoded.uuid },
+    select: sessionSelect,
   })
 
   if (!session || !session.valid) return false

@@ -7,11 +7,10 @@ export const deserializeUser = (
   next: NextFunction,
 ) => {
   const accessToken = req.cookies?.accessToken
-  const refreshToken = req.cookies.refreshToken
 
   if (!accessToken) return next()
 
-  const { decoded, expired } = verifyJwt(accessToken)
+  const { decoded } = verifyJwt(accessToken)
 
   if (decoded) {
     res.locals.user = decoded

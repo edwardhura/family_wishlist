@@ -24,6 +24,7 @@
 			"codepaths",
 			"healthcheck",
 			"pino",
+			"Reauth",
 			"reduxjs",
 			"tsbuildinfo"
 		],

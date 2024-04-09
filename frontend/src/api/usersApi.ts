@@ -4,10 +4,7 @@ interface UserResponse {
   uuid: string
   email: string
   name?: string
-  googleId: string
   avatar?: string
-  createdAt: string
-  updatedAt: string
 }
 
 const api = rootApi.injectEndpoints({

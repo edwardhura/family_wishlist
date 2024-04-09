@@ -1,3 +1,4 @@
+import { Prisma } from '@prisma/client'
 import { dbClient } from '../db/prismaClient'
 
 interface UserCreateAttributes {
@@ -5,6 +6,13 @@ interface UserCreateAttributes {
   name?: string
   googleId: string
   avatar?: string
+}
+
+const userSelect: Prisma.UserSelect = {
+  uuid: true,
+  email: true,
+  name: true,
+  avatar: true,
 }
 
 export const upsert = async (userParams: UserCreateAttributes) => {
@@ -18,5 +26,5 @@ export const upsert = async (userParams: UserCreateAttributes) => {
 
 export const find = async (uuid: string) => {
   const { user } = dbClient
-  return user.findUnique({ where: { uuid } })
+  return user.findUnique({ where: { uuid }, select: userSelect })
 }

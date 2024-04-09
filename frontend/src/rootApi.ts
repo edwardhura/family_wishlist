@@ -4,7 +4,7 @@ import type {
   FetchArgs,
   FetchBaseQueryError,
 } from '@reduxjs/toolkit/query'
-import { navigate } from 'actions/navigation'
+import { navigate } from 'utils/navigation'
 
 const UNAUTHORIZED = 401
 
