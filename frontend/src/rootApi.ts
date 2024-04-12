@@ -1,9 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import type {
-  BaseQueryFn,
-  FetchArgs,
-  FetchBaseQueryError,
-} from '@reduxjs/toolkit/query'
+import type { BaseQueryFn, FetchArgs, FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import { navigate } from 'utils/navigation'
 
 const UNAUTHORIZED = 401
@@ -13,11 +9,11 @@ const baseQuery = fetchBaseQuery({
   credentials: 'include',
   mode: 'cors',
 })
-const baseQueryWithReauth: BaseQueryFn<
-  string | FetchArgs,
-  unknown,
-  FetchBaseQueryError
-> = async (args, api, extraOptions) => {
+const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (
+  args,
+  api,
+  extraOptions,
+) => {
   let result = await baseQuery(args, api, extraOptions)
   if (result.error && result.error.status === UNAUTHORIZED) {
     const refreshResult = await baseQuery(
@@ -40,4 +36,5 @@ const baseQueryWithReauth: BaseQueryFn<
 export const rootApi = createApi({
   baseQuery: baseQueryWithReauth,
   endpoints: () => ({}),
+  tagTypes: ['WISH_LIST'],
 })

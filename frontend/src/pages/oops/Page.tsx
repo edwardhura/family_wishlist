@@ -7,7 +7,7 @@ import {
   VStack,
 } from '@chakra-ui/react'
 
-export const Oops = () => (
+export const Page = () => (
   <Container w="lg" minH="100vh" centerContent>
     <AbsoluteCenter>
       <Heading>

@@ -14,7 +14,7 @@ import {
   AbsoluteCenter,
 } from '@chakra-ui/react'
 
-export const Login = () => {
+export const Page = () => {
   const navigate = useNavigate()
   const { data: user, isLoading, isSuccess } = useFetchUsersMeQuery()
 

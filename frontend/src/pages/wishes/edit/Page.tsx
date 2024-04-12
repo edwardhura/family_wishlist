@@ -1,0 +1,24 @@
+import { Container, Heading } from '@chakra-ui/react'
+import { useParams } from 'react-router-dom'
+import { WishForm } from '../form'
+import { Breadcrumb } from 'components'
+
+export const Page = () => {
+  const { uuid } = useParams()
+
+  return (
+    <Container minW="100%">
+      <Breadcrumb
+        tree={[
+          { path: '/', name: 'Board' },
+          { path: `/wishes/${uuid}/edit`, name: 'Edit', current: true },
+        ]}
+      />
+      <Heading padding="1em 0 2em" size="xl">
+        {' '}
+        Edit wish{' '}
+      </Heading>
+      <WishForm uuid={uuid} />
+    </Container>
+  )
+}
