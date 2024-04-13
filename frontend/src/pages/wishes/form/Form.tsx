@@ -19,11 +19,13 @@ import { PriceInput } from 'components'
 import { useCreateWishMutation, useUpdateWishMutation, useFetchWishQuery } from 'api/wishesApi'
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useApiStatusNotification } from 'hooks/useApiStatusNotification'
+import { Priority, PrioritySchema } from 'types'
 
 interface FormInput {
   title: string
   comment: string
-  priority: string
+  priority: Priority
   link: string
   price: number
 }
@@ -31,8 +33,13 @@ interface FormInput {
 export const WishForm = ({ uuid }: { uuid?: string }) => {
   const navigate = useNavigate()
   const { data, isSuccess: isPreloaded } = useFetchWishQuery(uuid, { skip: !uuid })
-  const [create, { isLoading: createIsLoading, isSuccess: createIsSuccess }] = useCreateWishMutation()
-  const [update, { isLoading: updateIsLoading, isSuccess: updateIsSuccess }] = useUpdateWishMutation()
+  const [create, { isLoading: createIsLoading, isSuccess: createIsSuccess, isError: isCreateError }] =
+    useCreateWishMutation()
+  const [update, { isLoading: updateIsLoading, isSuccess: updateIsSuccess, isError: isUpdateError }] =
+    useUpdateWishMutation()
+
+  useApiStatusNotification({ isSuccess: updateIsSuccess, isError: isUpdateError })
+  useApiStatusNotification({ isSuccess: createIsSuccess, isError: isCreateError })
 
   const {
     handleSubmit,
@@ -41,7 +48,7 @@ export const WishForm = ({ uuid }: { uuid?: string }) => {
     getValues,
     reset,
   } = useForm<FormInput>({
-    defaultValues: { priority: 'low', price: 0, title: data?.title },
+    defaultValues: { priority: Priority.low, price: 0, title: data?.title },
   })
 
   useEffect(() => {
@@ -52,12 +59,14 @@ export const WishForm = ({ uuid }: { uuid?: string }) => {
 
   useEffect(() => {
     if (isPreloaded) {
-      reset(data)
+      const { priority = Priority.low, ...restData } = data
+      reset({ ...restData, priority })
     }
   }, [reset, data, isPreloaded])
 
   const onSubmit: SubmitHandler<FormInput> = ({ price, ...restFormData }) => {
     const serializedPrice = price ? price : 0
+    console.log(restFormData)
     if (uuid) {
       return update({ ...restFormData, price: serializedPrice, uuid })
     }
@@ -97,13 +106,18 @@ export const WishForm = ({ uuid }: { uuid?: string }) => {
             <FormLabel htmlFor="priority"> Priority </FormLabel>
             <RadioGroup defaultValue={defaultPriority}>
               <Stack spacing={5} direction="row">
-                <Radio {...register(priorityFieldId)} colorScheme="blue" value="low">
+                <Radio {...register(priorityFieldId)} size="md" value={Priority.low} colorScheme={PrioritySchema.low}>
                   Low
                 </Radio>
-                <Radio {...register(priorityFieldId)} colorScheme="yellow" value="medium">
+                <Radio
+                  {...register(priorityFieldId)}
+                  size="md"
+                  colorScheme={PrioritySchema.medium}
+                  value={Priority.medium}
+                >
                   Medium
                 </Radio>
-                <Radio {...register(priorityFieldId)} colorScheme="red" value="high">
+                <Radio {...register(priorityFieldId)} size="md" colorScheme={PrioritySchema.high} value={Priority.high}>
                   High
                 </Radio>
               </Stack>

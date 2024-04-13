@@ -15,6 +15,7 @@ interface WishesCreateAttributes {
 }
 
 interface WishesUpdateAttributes extends WishesCreateAttributes {
+  isDone?: boolean
   uuid: string
 }
 
@@ -25,6 +26,7 @@ const wishSelect: Prisma.WishSelect = {
   title: true,
   link: true,
   price: true,
+  isDone: true,
 }
 
 export const create = async (wishParams: WishesCreateAttributes) => {

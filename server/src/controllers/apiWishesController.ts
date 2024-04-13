@@ -25,14 +25,22 @@ router.get('/:uuid', async (req: Request, res: Response) => {
   }
 })
 
-router.post('/', async (req: Request, res: Response) => {
+interface CreateParams {
+  title: string
+  priority: string
+  comment: string
+  link: string
+  price: number
+}
+
+router.post('/', async (req: Request<CreateParams>, res: Response) => {
   try {
     const createParams = {
-      title: req.query.title as string,
-      priority: req.query.priority as string,
-      comment: req.query.comment as string,
-      link: req.query.link as string,
-      price: Number(req.query.price) as number,
+      title: req.body.title as string,
+      priority: req.body.priority as string,
+      comment: req.body.comment as string,
+      link: req.body.link as string,
+      price: Number(req.body.price) as number,
       userUuid: res.locals.user.uuid as string,
     }
 
@@ -44,15 +52,26 @@ router.post('/', async (req: Request, res: Response) => {
   }
 })
 
-router.put('/:uuid', async (req: Request, res: Response) => {
+interface UpdateParams {
+  uuid: string
+  title: string
+  priority: string
+  comment: string
+  link: string
+  price: number
+  isDone: boolean
+}
+
+router.put('/:uuid', async (req: Request<UpdateParams>, res: Response) => {
   try {
     const updateParams = {
       uuid: req.params.uuid as string,
-      title: req.query.title as string,
-      priority: req.query.priority as string,
-      comment: req.query.comment as string,
-      link: req.query.link as string,
-      price: Number(req.query.price) as number,
+      title: req.body.title as string,
+      priority: req.body.priority as string,
+      comment: req.body.comment as string,
+      link: req.body.link as string,
+      price: Number(req.body.price) as number,
+      isDone: req.body.isDone as boolean,
       userUuid: res.locals.user.uuid as string,
     }
 

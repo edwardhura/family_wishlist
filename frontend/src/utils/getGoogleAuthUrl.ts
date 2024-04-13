@@ -6,10 +6,7 @@ const getGoogleAuthUrl = () => {
     access_type: 'offline',
     response_type: 'code',
     prompt: 'consent',
-    scope: [
-      import.meta.env.VITE_GOOGLE_OAUTH2_EMAIL_SCOPE,
-      import.meta.env.VITE_GOOGLE_OAUTH2_PROFILE_SCOPE,
-    ].join(' '),
+    scope: [import.meta.env.VITE_GOOGLE_OAUTH2_EMAIL_SCOPE, import.meta.env.VITE_GOOGLE_OAUTH2_PROFILE_SCOPE].join(' '),
   }
 
   const qs = new URLSearchParams(options)

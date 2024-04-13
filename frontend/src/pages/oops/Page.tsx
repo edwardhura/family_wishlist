@@ -1,11 +1,5 @@
 import { WarningIcon } from '@chakra-ui/icons'
-import {
-  AbsoluteCenter,
-  Box,
-  Container,
-  Heading,
-  VStack,
-} from '@chakra-ui/react'
+import { AbsoluteCenter, Box, Container, Heading, VStack } from '@chakra-ui/react'
 
 export const Page = () => (
   <Container w="lg" minH="100vh" centerContent>

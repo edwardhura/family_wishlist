@@ -2,6 +2,7 @@ import dotenv from 'dotenv'
 dotenv.config({ path: `.env.${process.env.NODE_ENV}` })
 
 import express, { Express } from 'express'
+import { json } from 'body-parser'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import routes from './routes'
@@ -15,7 +16,7 @@ app.use(cors({ origin: process.env.ORIGIN, credentials: true }))
 
 app.use(cookieParser())
 
-app.use(express.json())
+app.use(json())
 
 app.use(deserializeUser)
 

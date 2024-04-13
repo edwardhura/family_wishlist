@@ -1,24 +1,31 @@
 import { rootApi } from 'rootApi'
+import { Priority } from 'types'
 
 interface WishResponse {
   uuid: string
   title: string
   comment: string
-  priority: string
+  priority: Priority
   link: string
   price: number
+  isDone: boolean
 }
 
 interface CreateWishParams {
   title: string
   comment: string
-  priority: string
+  priority: Priority
   link: string
   price: number
 }
 
 interface UpdateWishParams extends CreateWishParams {
   uuid: string
+}
+
+interface CompleteWishParams {
+  uuid: string
+  isDone: boolean
 }
 
 const api = rootApi.injectEndpoints({
@@ -31,14 +38,14 @@ const api = rootApi.injectEndpoints({
       query: (uuid) => ({ url: `wishes/${uuid}`, method: 'GET' }),
     }),
     createWish: build.mutation<void, CreateWishParams>({
-      query: (params) => ({ url: 'wishes/', method: 'POST', params }),
+      query: (params) => ({ url: 'wishes/', method: 'POST', body: params }),
       invalidatesTags: ['WISH_LIST'],
     }),
-    updateWish: build.mutation<void, UpdateWishParams>({
+    updateWish: build.mutation<void, UpdateWishParams | CompleteWishParams>({
       query: (params) => ({
         url: `wishes/${params.uuid}`,
         method: 'PUT',
-        params,
+        body: params,
       }),
       invalidatesTags: ['WISH_LIST'],
     }),

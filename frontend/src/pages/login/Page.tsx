@@ -3,16 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { GlobalLoader } from 'components'
 import { useFetchUsersMeQuery } from 'api/usersApi'
 import { useEffect } from 'react'
-import {
-  Container,
-  Heading,
-  Card,
-  CardHeader,
-  CardBody,
-  Divider,
-  Center,
-  AbsoluteCenter,
-} from '@chakra-ui/react'
+import { Container, Heading, Card, CardHeader, CardBody, Divider, Center, AbsoluteCenter } from '@chakra-ui/react'
 
 export const Page = () => {
   const navigate = useNavigate()
