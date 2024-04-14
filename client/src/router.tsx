@@ -1,5 +1,5 @@
 import { Login, Layout, WishList, NewWish, EditWish } from './pages'
-import { createBrowserRouter } from 'react-router-dom'
+import { Navigate, createBrowserRouter } from 'react-router-dom'
 
 export const router = createBrowserRouter([
   {
@@ -7,7 +7,11 @@ export const router = createBrowserRouter([
     element: <Layout />,
     children: [
       {
-        path: '/',
+        index: true,
+        element: <Navigate to="/wishes" replace />,
+      },
+      {
+        path: '/wishes',
         element: <WishList />,
       },
       {

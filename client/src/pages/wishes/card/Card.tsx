@@ -30,14 +30,14 @@ interface CardProps {
   isDone: boolean
 }
 
-const Cap = ({ priority }: { priority: Priority }): React.JSX.Element => (
+const Cap = ({ priority, isDone = false }: { priority: Priority; isDone?: boolean }): React.JSX.Element => (
   <Box
     w="100%"
     h={2}
     minH={2}
     maxH={2}
     padding={0}
-    backgroundColor={PriorityColor[priority]}
+    backgroundColor={isDone ? 'green.500' : PriorityColor[priority]}
     borderTopRadius="inherit"
   />
 )
@@ -64,8 +64,8 @@ export const CardItem = ({ title, uuid, isDone, comment, priority, link, price }
   }, [uuid, remove])
 
   return (
-    <Card>
-      <Cap priority={priority} />
+    <Card bg={isDone ? 'teal.50' : 'white'}>
+      <Cap priority={priority} isDone={isDone} />
       <CardHeader>
         <Flex gap="12px">
           <Heading title={title} size="md" maxH="48px" overflow="hidden" textOverflow="ellipsis">
@@ -92,7 +92,14 @@ export const CardItem = ({ title, uuid, isDone, comment, priority, link, price }
           onClick={onCompleteClick}
           isLoading={updateIsLoading}
         />
-        <IconButton flex="1" variant="ghost" aria-label="Edit" icon={<EditIcon />} onClick={onEditClick} />
+        <IconButton
+          flex="1"
+          variant="ghost"
+          aria-label="Edit"
+          icon={<EditIcon />}
+          onClick={onEditClick}
+          isDisabled={isDone}
+        />
         <IconButton
           flex="1"
           variant="ghost"

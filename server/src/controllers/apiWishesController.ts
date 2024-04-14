@@ -5,9 +5,16 @@ import { find, list, destroy, update, create } from '../services/wishesService'
 
 const router = express.Router()
 
-router.get('/', async (_req: Request, res: Response) => {
+interface IndexQueryParams {
+  isDone?: boolean
+}
+
+router.get('/', async (req: Request<IndexQueryParams>, res: Response) => {
   try {
-    const wishes = await list({ userUuid: res.locals.user.uuid })
+    const wishes = await list({
+      userUuid: res.locals.user.uuid,
+      isDone: !!req.query.isDone,
+    })
     res.status(200).json(wishes)
   } catch (error: any) {
     logger.error(error)
@@ -15,9 +22,9 @@ router.get('/', async (_req: Request, res: Response) => {
   }
 })
 
-router.get('/:uuid', async (req: Request, res: Response) => {
+router.get('/:uuid', async (req: Request<{ uuid: string }>, res: Response) => {
   try {
-    const wish = await find(req.params.uuid as string)
+    const wish = await find(req.params.uuid)
     res.status(200).json(wish)
   } catch (error: any) {
     logger.error(error)

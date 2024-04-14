@@ -2,7 +2,8 @@ import { Prisma } from '@prisma/client'
 import { dbClient } from '../db/prismaClient'
 
 interface WishesQueryParams {
-  userUuid: string
+  userUuid?: string
+  isDone?: boolean
 }
 
 interface WishesCreateAttributes {
@@ -29,6 +30,19 @@ const wishSelect: Prisma.WishSelect = {
   isDone: true,
 }
 
+export const list = async (queryParams: WishesQueryParams) => {
+  const { wish } = dbClient
+  const { userUuid, isDone = false } = queryParams
+
+  return wish.findMany({ where: { userUuid, isDone }, select: wishSelect })
+}
+
+export const find = async (uuid: string) => {
+  const { wish } = dbClient
+
+  return wish.findFirst({ where: { uuid }, select: wishSelect })
+}
+
 export const create = async (wishParams: WishesCreateAttributes) => {
   const { wish } = dbClient
   return wish.create({ data: wishParams, select: wishSelect })
@@ -46,17 +60,4 @@ export const update = async (wishParams: WishesUpdateAttributes) => {
 export const destroy = async (uuid: string) => {
   const { wish } = dbClient
   return wish.delete({ where: { uuid } })
-}
-
-export const list = async (queryParams: WishesQueryParams) => {
-  const { wish } = dbClient
-  const { userUuid } = queryParams
-
-  return wish.findMany({ where: { userUuid }, select: wishSelect })
-}
-
-export const find = async (uuid: string) => {
-  const { wish } = dbClient
-
-  return wish.findFirst({ where: { uuid }, select: wishSelect })
 }

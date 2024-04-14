@@ -10,7 +10,7 @@ export const Page = () => {
     <Container minW="100%">
       <Breadcrumb
         tree={[
-          { path: '/', name: 'Board' },
+          { path: '/wishes', name: 'Board' },
           { path: `/wishes/${uuid}/edit`, name: 'Edit', current: true },
         ]}
       />

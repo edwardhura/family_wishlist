@@ -28,10 +28,14 @@ interface CompleteWishParams {
   isDone: boolean
 }
 
+interface FetchQueryParams {
+  isDone: boolean
+}
+
 const api = rootApi.injectEndpoints({
   endpoints: (build) => ({
-    fetchWishes: build.query<WishResponse[], void>({
-      query: () => ({ url: `wishes/`, method: 'GET' }),
+    fetchWishes: build.query<WishResponse[], { params?: FetchQueryParams }>({
+      query: ({ params = {} }) => ({ url: `wishes/`, method: 'GET', params: params }),
       providesTags: ['WISH_LIST'],
     }),
     fetchWish: build.query<WishResponse, string | undefined>({
