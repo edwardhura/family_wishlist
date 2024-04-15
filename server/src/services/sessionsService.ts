@@ -16,7 +16,7 @@ export const upsertSession = async ({
 }: {
   userUuid: string
   userAgent: string
-  valid: boolean
+  valid?: boolean
 }) => {
   const { session } = dbClient
   return session.upsert({

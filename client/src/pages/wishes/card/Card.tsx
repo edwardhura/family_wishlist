@@ -1,4 +1,4 @@
-import { CheckIcon, CloseIcon, EditIcon, ExternalLinkIcon } from '@chakra-ui/icons'
+import { CheckCircleIcon, CheckIcon, CloseIcon, EditIcon, ExternalLinkIcon } from '@chakra-ui/icons'
 import {
   CardBody,
   CardFooter,
@@ -87,8 +87,8 @@ export const CardItem = ({ title, uuid, isDone, comment, priority, link, price }
         <IconButton
           flex="1"
           variant="ghost"
-          aria-label="Complete"
-          icon={<CheckIcon />}
+          aria-label={isDone ? 'Uncheck' : 'Complete'}
+          icon={isDone ? <CheckCircleIcon color="green.500" /> : <CheckIcon />}
           onClick={onCompleteClick}
           isLoading={updateIsLoading}
         />

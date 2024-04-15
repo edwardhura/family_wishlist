@@ -11,6 +11,7 @@ const api = rootApi.injectEndpoints({
   endpoints: (build) => ({
     fetchUsersMe: build.query<UserResponse, void>({
       query: () => ({ url: 'users/me', method: 'GET' }),
+      providesTags: ['USER_ME'],
     }),
   }),
 })

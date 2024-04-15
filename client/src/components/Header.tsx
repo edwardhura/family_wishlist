@@ -1,9 +1,11 @@
 import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons'
 import { Box, Avatar, Flex, Spacer, Menu, MenuButton, IconButton, MenuList, MenuItem } from '@chakra-ui/react'
+import { useRemoveSessionMutation } from 'api/sessionsApi'
 import { useFetchUsersMeQuery } from 'api/usersApi'
 
 export const Header = (): JSX.Element => {
   const { data: user } = useFetchUsersMeQuery()
+  const [logout] = useRemoveSessionMutation()
 
   return (
     <Flex h="4em" background="teal.500" borderBottomWidth={1} padding="0 2em" boxShadow="base">
@@ -33,7 +35,9 @@ export const Header = (): JSX.Element => {
             _active={{ background: 'teal.600' }}
           />
           <MenuList marginTop="0.5em" boxShadow="base">
-            <MenuItem icon={<CloseIcon />}>Logout</MenuItem>
+            <MenuItem icon={<CloseIcon />} onClick={() => void logout()}>
+              Logout
+            </MenuItem>
           </MenuList>
         </Menu>
       </Box>

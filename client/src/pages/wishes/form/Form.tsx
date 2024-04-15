@@ -90,6 +90,7 @@ export const WishForm = ({ uuid }: { uuid?: string }): JSX.Element => {
               id="title"
               placeholder="Card Name"
               variant="outline"
+              bg="white"
               w="25em"
               {...register('title', {
                 required: 'Title field is required',
@@ -99,25 +100,38 @@ export const WishForm = ({ uuid }: { uuid?: string }): JSX.Element => {
 
           <FormControl>
             <FormLabel htmlFor="price"> Price </FormLabel>
-            <PriceInput id="price" variant="outline" {...register('price', { valueAsNumber: true })} />
+            <PriceInput id="price" variant="outline" bg="white" {...register('price', { valueAsNumber: true })} />
           </FormControl>
 
           <FormControl isInvalid={!!errors.priority}>
             <FormLabel htmlFor="priority"> Priority </FormLabel>
             <RadioGroup defaultValue={defaultPriority}>
               <Stack spacing={5} direction="row">
-                <Radio {...register(priorityFieldId)} size="md" value={Priority.low} colorScheme={PrioritySchema.low}>
+                <Radio
+                  bg="white"
+                  size="md"
+                  value={Priority.low}
+                  colorScheme={PrioritySchema.low}
+                  {...register(priorityFieldId)}
+                >
                   Low
                 </Radio>
                 <Radio
-                  {...register(priorityFieldId)}
+                  bg="white"
                   size="md"
                   colorScheme={PrioritySchema.medium}
                   value={Priority.medium}
+                  {...register(priorityFieldId)}
                 >
                   Medium
                 </Radio>
-                <Radio {...register(priorityFieldId)} size="md" colorScheme={PrioritySchema.high} value={Priority.high}>
+                <Radio
+                  bg="white"
+                  size="md"
+                  colorScheme={PrioritySchema.high}
+                  value={Priority.high}
+                  {...register(priorityFieldId)}
+                >
                   High
                 </Radio>
               </Stack>
@@ -127,11 +141,11 @@ export const WishForm = ({ uuid }: { uuid?: string }): JSX.Element => {
         <Flex w="100%" flexDirection="column" gap="2em">
           <FormControl>
             <FormLabel htmlFor="link"> Wish link </FormLabel>
-            <Input id="link" placeholder="URL" variant="outline" {...register('link')} />
+            <Input id="link" placeholder="URL" variant="outline" bg="white" {...register('link')} />
           </FormControl>
           <FormControl>
             <FormLabel htmlFor="comment"> Comments </FormLabel>
-            <Textarea id="comment" placeholder="Additional Information" {...register('comment')} />
+            <Textarea id="comment" placeholder="Additional Information" bg="white" {...register('comment')} />
           </FormControl>
         </Flex>
       </VStack>

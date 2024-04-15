@@ -2,8 +2,11 @@ import { Request, Response } from 'express'
 import express from 'express'
 import { logger } from '../libs'
 import { find, list, destroy, update, create } from '../services/wishesService'
+import { requireUser } from '../middleware'
 
 const router = express.Router()
+
+router.use(requireUser)
 
 interface IndexQueryParams {
   isDone?: boolean

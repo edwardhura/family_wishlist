@@ -8,7 +8,7 @@ export const requireUser = (
   const user = res.locals.user
 
   if (!user) {
-    return res.sendStatus(401)
+    return res.status(401).json({ status: 401, code: 'Unauthorized' })
   }
 
   return next()

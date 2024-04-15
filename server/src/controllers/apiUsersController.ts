@@ -2,18 +2,15 @@ import { Request, Response } from 'express'
 import express from 'express'
 import { logger } from '../libs'
 import { find } from '../services/usersService'
+import { requireUser } from '../middleware'
 
 const router = express.Router()
 
+router.use(requireUser)
+
 router.get('/me', async (_req: Request, res: Response) => {
   try {
-    const currentUser = res.locals.user
-
-    if (!currentUser) {
-      return res.status(401).json({ status: 401, code: 'Unauthorized' })
-    }
-
-    const user = await find(currentUser.uuid)
+    const user = await find(res.locals.user.uuid)
     res.status(200).json(user)
   } catch (error: any) {
     logger.error(error)
