@@ -2,7 +2,7 @@ import { Container, Heading } from '@chakra-ui/react'
 import { WishForm } from '../form'
 import { Breadcrumb } from 'components'
 
-export const Page = () => {
+export const Page = (): JSX.Element => {
   return (
     <Container minW="100%">
       <Breadcrumb

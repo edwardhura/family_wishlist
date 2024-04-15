@@ -1,4 +1,4 @@
-const getGoogleAuthUrl = () => {
+const getGoogleAuthUrl = (): string => {
   const rootURL = import.meta.env.VITE_GOOGLE_OAUTH2_URI
   const options = {
     redirect_uri: import.meta.env.VITE_GOOGLE_OAUTH2_REDIRECT_URI,

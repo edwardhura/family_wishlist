@@ -1,13 +1,12 @@
 import { AddIcon } from '@chakra-ui/icons'
 import { IconButtonProps, IconButton } from '@chakra-ui/react'
-import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
 type ModifiedIconButtonProps = Omit<IconButtonProps, 'aria-label'>
 
-export const AddWishButton = (props: ModifiedIconButtonProps): React.JSX.Element => {
+export const AddWishButton = (props: ModifiedIconButtonProps): JSX.Element => {
   const navigate = useNavigate()
-  const onClickHandler = () => navigate('/wishes/new')
+  const onClickHandler = (): void => navigate('/wishes/new')
 
   return (
     <IconButton

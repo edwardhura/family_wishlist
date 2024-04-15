@@ -28,9 +28,7 @@ interface CompleteWishParams {
   isDone: boolean
 }
 
-interface FetchQueryParams {
-  isDone: boolean
-}
+type FetchQueryParams = Record<string, string>
 
 const api = rootApi.injectEndpoints({
   endpoints: (build) => ({

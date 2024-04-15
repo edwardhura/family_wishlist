@@ -15,7 +15,7 @@ import {
 import { useRemoveWishMutation, useUpdateWishMutation } from 'api/wishesApi'
 import { ExpandableText } from 'components'
 import { useApiStatusNotification } from 'hooks/useApiStatusNotification'
-import { useCallback } from 'react'
+import React, { useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Priority, PriorityColor } from 'types'
 import { formatPrice } from 'utils/formatPrice'
@@ -42,7 +42,7 @@ const Cap = ({ priority, isDone = false }: { priority: Priority; isDone?: boolea
   />
 )
 
-export const CardItem = ({ title, uuid, isDone, comment, priority, link, price }: CardProps) => {
+export const CardItem = ({ title, uuid, isDone, comment, priority, link, price }: CardProps): React.JSX.Element => {
   const navigate = useNavigate()
   const [remove, { isLoading: removeIsLoading, isSuccess: removeIsSuccess, isError: removeIsError }] =
     useRemoveWishMutation()

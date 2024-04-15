@@ -30,7 +30,7 @@ interface FormInput {
   price: number
 }
 
-export const WishForm = ({ uuid }: { uuid?: string }) => {
+export const WishForm = ({ uuid }: { uuid?: string }): JSX.Element => {
   const navigate = useNavigate()
   const { data, isSuccess: isPreloaded } = useFetchWishQuery(uuid, { skip: !uuid })
   const [create, { isLoading: createIsLoading, isSuccess: createIsSuccess, isError: isCreateError }] =
@@ -73,8 +73,8 @@ export const WishForm = ({ uuid }: { uuid?: string }) => {
     return create({ ...restFormData, price: serializedPrice })
   }
 
-  const onSubmitHandler = (e: React.FormEvent) => {
-    return void handleSubmit(onSubmit)(e)
+  const onSubmitHandler = (e: React.FormEvent): void => {
+    void handleSubmit(onSubmit)(e)
   }
 
   const priorityFieldId = 'priority'

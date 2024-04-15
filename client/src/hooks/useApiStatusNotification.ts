@@ -1,7 +1,7 @@
 import { ToastId, useToast } from '@chakra-ui/react'
 import { useEffect, useRef } from 'react'
 
-export const useApiStatusNotification = ({ isSuccess, isError }: { isSuccess: boolean; isError: boolean }) => {
+export const useApiStatusNotification = ({ isSuccess, isError }: { isSuccess: boolean; isError: boolean }): void => {
   const toast = useToast()
   const toastIdRef = useRef<ToastId>()
 

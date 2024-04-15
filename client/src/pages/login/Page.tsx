@@ -5,7 +5,7 @@ import { useFetchUsersMeQuery } from 'api/usersApi'
 import { useEffect } from 'react'
 import { Container, Heading, Card, CardHeader, CardBody, Divider, Center, AbsoluteCenter } from '@chakra-ui/react'
 
-export const Page = () => {
+export const Page = (): JSX.Element => {
   const navigate = useNavigate()
   const { data: user, isLoading, isSuccess } = useFetchUsersMeQuery()
 

@@ -2,7 +2,7 @@ import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons'
 import { Box, Avatar, Flex, Spacer, Menu, MenuButton, IconButton, MenuList, MenuItem } from '@chakra-ui/react'
 import { useFetchUsersMeQuery } from 'api/usersApi'
 
-export const Header = () => {
+export const Header = (): JSX.Element => {
   const { data: user } = useFetchUsersMeQuery()
 
   return (

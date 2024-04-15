@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { WishForm } from '../form'
 import { Breadcrumb } from 'components'
 
-export const Page = () => {
+export const Page = (): JSX.Element => {
   const { uuid } = useParams()
 
   return (

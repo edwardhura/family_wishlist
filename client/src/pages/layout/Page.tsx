@@ -4,7 +4,7 @@ import { GlobalLoader, Header } from 'components'
 import { useFetchUsersMeQuery } from 'api/usersApi'
 import { Oops } from 'pages'
 
-export const Page = () => {
+export const Page = (): JSX.Element => {
   const { isLoading, isError } = useFetchUsersMeQuery()
 
   if (isError) return <Oops />
