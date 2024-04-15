@@ -26,11 +26,11 @@
         ```
         `${projectRootFolder}/client/.env.${process.env.NODE_ENV}` FILE:
         ```
-            REACT_APP_GOOGLE_OAUTH2_URI="https://accounts.google.com/o/oauth2/v2/auth"
-            REACT_APP_GOOGLE_OAUTH2_CLIENT_ID="<USE YOUR CLIENT ID>"
-            REACT_APP_GOOGLE_OAUTH2_REDIRECT_URI="http://localhost:8000/api/sessions/oauth/google"
-            REACT_APP_GOOGLE_OAUTH2_EMAIL_SCOPE="https://www.googleapis.com/auth/userinfo.email"
-            REACT_APP_GOOGLE_OAUTH2_PROFILE_SCOPE="https://www.googleapis.com/auth/userinfo.profile"
+            VITE_GOOGLE_OAUTH2_URI="https://accounts.google.com/o/oauth2/v2/auth"
+            VITE_GOOGLE_OAUTH2_CLIENT_ID="<USE YOUR CLIENT ID>"
+            VITE_GOOGLE_OAUTH2_REDIRECT_URI="http://localhost:8000/api/sessions/oauth/google"
+            VITE_GOOGLE_OAUTH2_EMAIL_SCOPE="https://www.googleapis.com/auth/userinfo.email"
+            VITE_GOOGLE_OAUTH2_PROFILE_SCOPE="https://www.googleapis.com/auth/userinfo.profile"
         ```
 5) Run dev migrations with `yarn migration:dev`
 6) Install recommended extensions in VS Code.
@@ -38,5 +38,10 @@
 
 ## Run
 
-1) `yarn run dev` or `yarn run dev:debug` for VS code launch debug.
-2) 
+1) Server: `yarn run dev` or `yarn run dev:debug` for VS code launch debug.
+2) Client: `yarn run dev`.
+3) Linter helper commands:
+    - Server: `yarn prettier . --write`
+    - Client: `yarn lint`, `yarn prettier`
+4) Helper commands:
+    - Server DB client: `yarn prisma:cli` - development env CLI.
