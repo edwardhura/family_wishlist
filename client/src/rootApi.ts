@@ -15,7 +15,6 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
   extraOptions,
 ) => {
   let result = await baseQuery(args, api, extraOptions)
-  console.log(result)
   if (result.error && result.error.status === UNAUTHORIZED) {
     const refreshResult = await baseQuery(
       {

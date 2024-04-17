@@ -1,9 +1,16 @@
 import { Prisma } from '@prisma/client'
 import { dbClient } from '../db/prismaClient'
 
+export enum AvailableScopes {
+  Family = 'family',
+  FamilyUser = 'user',
+}
+
 interface WishesQueryParams {
+  currentUserUuid?: string
   userUuid?: string
   isDone?: boolean
+  scope?: AvailableScopes
 }
 
 interface WishesCreateAttributes {
@@ -32,9 +39,27 @@ const wishSelect: Prisma.WishSelect = {
 
 export const list = async (queryParams: WishesQueryParams) => {
   const { wish } = dbClient
-  const { userUuid, isDone = false } = queryParams
+  const {
+    currentUserUuid,
+    isDone = false,
+    scope = AvailableScopes.Family,
+  } = queryParams
 
-  return wish.findMany({ where: { userUuid, isDone }, select: wishSelect })
+  let where = {}
+  switch (scope) {
+    case AvailableScopes.Family: {
+      where = { ...where, userUuid: currentUserUuid, isDone }
+      break
+    }
+    case AvailableScopes.FamilyUser: {
+      where = { ...where, userUuid: currentUserUuid, isDone }
+      break
+    }
+    default:
+      throw Error('Not available scope')
+  }
+
+  return wish.findMany({ where, select: wishSelect })
 }
 
 export const find = async (uuid: string) => {

@@ -27,7 +27,7 @@ model Wish {
 model User {
   uuid      String   @id @default(uuid())
   email     String   @unique
-  name      String?
+  name      String
   googleId  String   @unique
   avatar    String?
   createdAt DateTime @default(now())

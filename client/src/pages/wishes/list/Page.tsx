@@ -7,7 +7,7 @@ import { useSearchParams } from 'react-router-dom'
 
 export const Page = (): JSX.Element => {
   const [searchParams] = useSearchParams()
-  const queryParams = Object.fromEntries(searchParams.entries())
+  const queryParams = { ...Object.fromEntries(searchParams.entries()) }
   const { data: wishes } = useFetchWishesQuery({ params: queryParams })
 
   return (

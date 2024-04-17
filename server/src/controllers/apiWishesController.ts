@@ -1,7 +1,14 @@
 import { Request, Response } from 'express'
 import express from 'express'
 import { logger } from '../libs'
-import { find, list, destroy, update, create } from '../services/wishesService'
+import {
+  find,
+  list,
+  destroy,
+  update,
+  create,
+  AvailableScopes,
+} from '../services/wishesService'
 import { requireUser } from '../middleware'
 
 const router = express.Router()
@@ -10,13 +17,17 @@ router.use(requireUser)
 
 interface IndexQueryParams {
   isDone?: boolean
+  scope?: AvailableScopes
+  userUuid?: string
 }
 
 router.get('/', async (req: Request<IndexQueryParams>, res: Response) => {
   try {
     const wishes = await list({
-      userUuid: res.locals.user.uuid,
+      currentUserUuid: res.locals.user.uuid,
+      userUuid: req.query.userUuid as string,
       isDone: !!req.query.isDone,
+      scope: req.query.scope as AvailableScopes,
     })
     res.status(200).json(wishes)
   } catch (error: any) {

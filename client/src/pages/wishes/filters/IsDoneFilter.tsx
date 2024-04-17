@@ -8,9 +8,11 @@ export const IsDoneFilter: React.FC = (): React.JSX.Element => {
   const onSwitchChangeHandler = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       if (event.target.checked) {
-        setSearchParams({ ...searchParams, isDone: 'true' })
+        searchParams.set('isDone', 'true')
+        return setSearchParams(searchParams)
       } else {
-        setSearchParams({ ...searchParams })
+        searchParams.delete('isDone')
+        return setSearchParams(searchParams)
       }
     },
     [searchParams, setSearchParams],

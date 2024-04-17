@@ -1,5 +1,6 @@
 import { rootApi } from 'rootApi'
 import { Priority } from 'types'
+import { WishesAvailableScopes } from 'types/scopes'
 
 interface WishResponse {
   uuid: string
@@ -28,7 +29,11 @@ interface CompleteWishParams {
   isDone: boolean
 }
 
-type FetchQueryParams = Record<string, string>
+interface FetchQueryParams {
+  isDone?: string
+  scope?: WishesAvailableScopes
+  userUuid?: string
+}
 
 const api = rootApi.injectEndpoints({
   endpoints: (build) => ({
