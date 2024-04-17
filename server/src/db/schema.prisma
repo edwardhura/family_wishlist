@@ -10,6 +10,17 @@ datasource db {
   url      = env("SQLITE_DATABASE_URL")
 }
 
+model Family {
+  uuid       String   @id @default(uuid())
+  name       String
+  inviteCode String?  @unique
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now())
+  members    User[]
+
+  @@index([inviteCode])
+}
+
 model Wish {
   uuid      String   @id @default(uuid())
   priority  String   @default("low")
@@ -18,29 +29,31 @@ model Wish {
   link      String?
   price     Int?
   isDone    Boolean  @default(false)
-  user      User     @relation(fields: [userUuid], references: [uuid])
   userUuid  String
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
+  user      User     @relation(fields: [userUuid], references: [uuid])
 }
 
 model User {
-  uuid      String   @id @default(uuid())
-  email     String   @unique
-  name      String
-  googleId  String   @unique
-  avatar    String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
-  wishes    Wish[]
-  session   Session?
+  uuid       String   @id @default(uuid())
+  email      String   @unique
+  name       String
+  googleId   String   @unique
+  avatar     String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now())
+  familyUuid String?
+  wishes     Wish[]
+  session    Session?
+  Family     Family?  @relation(fields: [familyUuid], references: [uuid])
 }
 
 model Session {
-  user      User     @relation(fields: [userUuid], references: [uuid])
   userUuid  String   @unique
-  valid     Boolean  @default(true)
+  valid     Boolean  @default(false)
   userAgent String
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
+  user      User     @relation(fields: [userUuid], references: [uuid])
 }
