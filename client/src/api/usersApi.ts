@@ -6,6 +6,7 @@ interface UserResponse {
   email: string
   name: string
   avatar?: string
+  familyUuid?: string
 }
 
 interface FetchQueryParams {

@@ -11,14 +11,15 @@ datasource db {
 }
 
 model Family {
-  uuid       String   @id @default(uuid())
-  name       String
-  inviteCode String?  @unique
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @default(now())
-  members    User[]
+  uuid                 String    @id @default(uuid())
+  name                 String
+  inviteToken          String?   @unique
+  inviteTokenExpiredAt DateTime?
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @default(now())
+  members              User[]
 
-  @@index([inviteCode])
+  @@index([inviteToken])
 }
 
 model Wish {

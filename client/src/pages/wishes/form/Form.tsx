@@ -66,7 +66,6 @@ export const WishForm = ({ uuid }: { uuid?: string }): JSX.Element => {
 
   const onSubmit: SubmitHandler<FormInput> = ({ price, ...restFormData }) => {
     const serializedPrice = price ? price : 0
-    console.log(restFormData)
     if (uuid) {
       return update({ ...restFormData, price: serializedPrice, uuid })
     }

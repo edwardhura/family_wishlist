@@ -1,5 +1,5 @@
 export { LoginLink } from './LoginLink'
-export { Header } from './Header'
+export { HeaderBar } from './HeaderBar'
 export { GlobalLoader } from './GlobalLoader'
 export { AddWishButton } from './AddWishButton'
 export { PriceInput } from './PriceInput'

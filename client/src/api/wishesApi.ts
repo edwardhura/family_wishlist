@@ -44,11 +44,11 @@ const api = rootApi.injectEndpoints({
     fetchWish: build.query<WishResponse, string | undefined>({
       query: (uuid) => ({ url: `wishes/${uuid}`, method: 'GET' }),
     }),
-    createWish: build.mutation<void, CreateWishParams>({
+    createWish: build.mutation<WishResponse, CreateWishParams>({
       query: (params) => ({ url: 'wishes/', method: 'POST', body: params }),
       invalidatesTags: ['WISH_LIST'],
     }),
-    updateWish: build.mutation<void, UpdateWishParams | CompleteWishParams>({
+    updateWish: build.mutation<WishResponse, UpdateWishParams | CompleteWishParams>({
       query: (params) => ({
         url: `wishes/${params.uuid}`,
         method: 'PUT',

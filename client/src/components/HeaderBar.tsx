@@ -1,11 +1,21 @@
-import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons'
+import { ArrowLeftIcon, EditIcon, HamburgerIcon } from '@chakra-ui/icons'
 import { Box, Avatar, Flex, Spacer, Menu, MenuButton, IconButton, MenuList, MenuItem } from '@chakra-ui/react'
 import { useRemoveSessionMutation } from 'api/sessionsApi'
 import { useFetchUsersMeQuery } from 'api/usersApi'
+import { useNavigate } from 'react-router-dom'
 
-export const Header = (): JSX.Element => {
+export const HeaderBar = (): JSX.Element => {
+  const navigate = useNavigate()
   const { data: user } = useFetchUsersMeQuery()
   const [logout] = useRemoveSessionMutation()
+
+  const navigateFamily = (): void => {
+    if (user?.familyUuid) {
+      navigate(`/families/${user?.familyUuid}/edit`)
+    } else {
+      navigate('/families/new')
+    }
+  }
 
   return (
     <Flex h="4em" background="teal.500" borderBottomWidth={1} padding="0 2em" boxShadow="base">
@@ -30,12 +40,16 @@ export const Header = (): JSX.Element => {
             boxSize="3em"
             colorScheme="teal"
             color="white"
-            borderWidth="2px"
+            borderWidth="0"
+            borderRadius="2em"
             _hover={{ background: 'teal.600' }}
             _active={{ background: 'teal.600' }}
           />
           <MenuList marginTop="0.5em" boxShadow="base">
-            <MenuItem icon={<CloseIcon />} onClick={() => void logout()}>
+            <MenuItem icon={<EditIcon />} onClick={navigateFamily}>
+              {user?.familyUuid ? 'Edit' : 'Create'} Family
+            </MenuItem>
+            <MenuItem icon={<ArrowLeftIcon />} onClick={() => void logout()}>
               Logout
             </MenuItem>
           </MenuList>

@@ -1,4 +1,4 @@
-import { Login, Layout, WishList, NewWish, EditWish } from './pages'
+import { Login, Layout, WishList, NewWish, EditWish, NewFamily, EditFamily } from './pages'
 import { Navigate, createBrowserRouter } from 'react-router-dom'
 
 export const router = createBrowserRouter([
@@ -21,6 +21,14 @@ export const router = createBrowserRouter([
       {
         path: '/wishes/:uuid/edit',
         element: <EditWish />,
+      },
+      {
+        path: 'families/new',
+        element: <NewFamily />,
+      },
+      {
+        path: 'families/:uuid/edit',
+        element: <EditFamily />,
       },
     ],
   },

@@ -17,6 +17,7 @@ const userSelect: Prisma.UserSelect = {
   email: true,
   name: true,
   avatar: true,
+  familyUuid: true,
 }
 
 interface UserListAttributes {

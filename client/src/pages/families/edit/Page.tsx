@@ -1,7 +1,7 @@
 import { Container, Heading } from '@chakra-ui/react'
-import { useParams } from 'react-router-dom'
-import { WishForm } from '../form'
+import { FamilyForm } from '../form'
 import { Breadcrumb } from 'components'
+import { useParams } from 'react-router-dom'
 
 export const Page = (): JSX.Element => {
   const { uuid } = useParams()
@@ -11,13 +11,13 @@ export const Page = (): JSX.Element => {
       <Breadcrumb
         tree={[
           { path: '/wishes', name: 'Board' },
-          { path: `/wishes/${uuid}/edit`, name: 'Edit', current: true },
+          { path: `/families/${uuid}/edit`, name: 'Edit', current: true },
         ]}
       />
       <Heading padding="1em 0 2em" size="xl">
-        Edit wish
+        Edit Family
       </Heading>
-      <WishForm uuid={uuid} />
+      <FamilyForm uuid={uuid} />
     </Container>
   )
 }
