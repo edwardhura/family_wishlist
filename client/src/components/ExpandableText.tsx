@@ -1,4 +1,4 @@
-import { Button, Text, TextProps } from '@chakra-ui/react'
+import { Center, Button, Text, TextProps } from '@chakra-ui/react'
 import React, { useCallback, useState } from 'react'
 
 export const ExpandableText = ({
@@ -26,10 +26,12 @@ export const ExpandableText = ({
       {viewedText}
       {isExpandable && (
         <>
-          &nbsp;
-          <Button colorScheme="black" variant="link" size="md" onClick={onExpandClickHandler}>
-            {expanded ? '< less' : '> more'}
-          </Button>
+          <br />
+          <Center m="8px">
+            <Button colorScheme="black" variant="link" size="md" onClick={onExpandClickHandler}>
+              {expanded ? 'Show less' : 'Show more'}
+            </Button>
+          </Center>
         </>
       )}
     </Text>
