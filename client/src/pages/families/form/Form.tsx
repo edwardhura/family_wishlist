@@ -1,5 +1,6 @@
 import { Button, Divider, Flex, FormControl, FormLabel, Input, Spacer } from '@chakra-ui/react'
 import { useCreateFamilyMutation, useFetchFamilyQuery, useUpdateFamilyMutation } from 'api/familiesApi'
+import { FamilyInviteLoginLinkButton } from 'components'
 import { useApiStatusNotification } from 'hooks/useApiStatusNotification'
 import React, { useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -68,6 +69,7 @@ export const FamilyForm = ({ uuid }: { uuid?: string }): React.JSX.Element => {
       </FormControl>
       <Divider borderColor="gray.200" marginTop="3em" />
       <Flex>
+        <FamilyInviteLoginLinkButton mt={4} />
         <Spacer />
         <Button mt={4} colorScheme="teal" isLoading={createIsLoading || updateIsLoading} type="submit">
           {uuid ? 'Update' : 'Create'}

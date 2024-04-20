@@ -1,8 +1,5 @@
 import { Request, Response } from 'express'
-import {
-  getGoogleOAuthTokens,
-  getGoogleUser,
-} from '../services/googleOauthService'
+import { getGoogleOAuthTokens, getGoogleUser } from '../services/googleOauthService'
 import { upsert as upsertUserData } from '../services/usersService'
 import { upsertSession, reIssueAccessToken } from '../services/sessionsService'
 import express from 'express'
@@ -20,7 +17,6 @@ router.delete('/', requireUser, async (req: Request, res: Response) => {
       userAgent: req.get('user-agent') || '',
     })
 
-    console.log(session)
     if (session.valid) {
       res.status(403).json({ success: false })
     } else {
@@ -78,8 +74,21 @@ router.get('/oauth/google', async (req: Request, res: Response) => {
       return res.status(403).send('Google account is not verified')
     }
 
+    const state = req.query.state
+    // check state return result then decode state from Base64 and parse Json state
+    const stateObject = state ? JSON.parse(atob(state as string)) : {}
+
     // update/create user with google account information
-    const user = await upsertUserData({ name, googleId, email, avatar })
+    const user = await upsertUserData(
+      {
+        name,
+        googleId,
+        email,
+        avatar,
+        ...(!!stateObject.familyInviteToken ? { inviteToken: stateObject.familyInviteToken } : {}),
+      },
+      { withFamilyConnect: !!stateObject.familyInviteToken },
+    )
 
     // create/update a session
     const session = await upsertSession({

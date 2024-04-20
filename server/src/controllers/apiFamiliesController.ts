@@ -1,9 +1,8 @@
 import { Request, Response } from 'express'
 import express from 'express'
 import { logger } from '../libs'
-
 import { requireUser } from '../middleware'
-import { create, find, update } from '../services/familiesService'
+import { create, find, generateToken, update } from '../services/familiesService'
 
 const router = express.Router()
 
@@ -20,6 +19,10 @@ interface FamilyCreateParams {
 
 interface FamilyUpdateParams extends FamilyCreateParams {
   uuid: string
+}
+
+interface FamilyGenerateTokenResponse {
+  inviteToken: string | null
 }
 
 router.get('/:uuid', async (req: Request<{ uuid: string }>, res: Response<FamilyResponseParams | null>) => {
@@ -59,13 +62,17 @@ router.put('/:uuid', async (req: Request<FamilyUpdateParams>, res: Response<Fami
   }
 })
 
-// router.patch('/:uuid/generateToken', async (req: Request<{ uuid: string }>, res: Response<FamilyResponseParams>) => {
-//   try {
-//     res.status(200).json(family)
-//   } catch (error: any) {
-//     logger.error(error)
-//     res.sendStatus(500)
-//   }
-// })
+router.patch(
+  '/:uuid/generateToken',
+  async (req: Request<{ uuid: string }>, res: Response<FamilyGenerateTokenResponse>) => {
+    try {
+      const inviteToken = await generateToken(req.params.uuid)
+      res.status(200).json(inviteToken)
+    } catch (error: any) {
+      logger.error(error)
+      res.sendStatus(500)
+    }
+  },
+)
 
 export default router

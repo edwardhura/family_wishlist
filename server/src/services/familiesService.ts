@@ -1,9 +1,15 @@
 import { Prisma } from '@prisma/client'
 import { dbClient } from '../db/prismaClient'
+import { randomBytes } from 'crypto'
+import dayjs from 'dayjs'
 
 const familySelect = {
   uuid: true,
   name: true,
+} satisfies Prisma.FamilySelect
+
+const inviteTokenSelect = {
+  inviteToken: true,
 } satisfies Prisma.FamilySelect
 
 interface FamilyCreateAttributes {
@@ -15,6 +21,7 @@ interface FamilyUpdateAttributes {
   uuid: string
   name?: string
   userUuid?: string
+  inviteToken?: string
 }
 
 export const find = async (uuid: string): Promise<Prisma.FamilyGetPayload<{ select: typeof familySelect }> | null> => {
@@ -51,6 +58,23 @@ export const update = async ({
     where: { uuid },
     data: { ...data, members: { connect: { uuid: userUuid } } },
     select: familySelect,
+  })
+
+  return familyRecord
+}
+
+export const generateToken = async (
+  uuid: string,
+): Promise<Prisma.FamilyGetPayload<{ select: typeof inviteTokenSelect }>> => {
+  const { family } = dbClient
+
+  const inviteToken = randomBytes(64).toString('hex')
+  const inviteTokenExpiredAt = dayjs().add(15, 'minutes').format()
+
+  const familyRecord = await family.update({
+    where: { uuid },
+    data: { inviteToken, inviteTokenExpiredAt },
+    select: inviteTokenSelect,
   })
 
   return familyRecord

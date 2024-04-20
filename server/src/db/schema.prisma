@@ -47,7 +47,7 @@ model User {
   familyUuid String?
   wishes     Wish[]
   session    Session?
-  Family     Family?  @relation(fields: [familyUuid], references: [uuid])
+  family     Family?  @relation(fields: [familyUuid], references: [uuid])
 }
 
 model Session {
