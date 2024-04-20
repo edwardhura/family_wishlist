@@ -24,11 +24,18 @@ const userSelect: Prisma.UserSelect = {
 }
 
 interface UserListAttributes {
-  scope: AvailableScopes
+  scope?: AvailableScopes
+  familyUuid?: string
+  userUuid: string
 }
 
 interface UserUpsertAvailableOptions {
   withFamilyConnect: boolean
+}
+
+interface AvailableListArgs {
+  select: typeof userSelect
+  where: { uuid?: string; familyUuid?: string }
 }
 
 export const upsert = async (userParams: UserUpsertAttributes, options: UserUpsertAvailableOptions) => {
@@ -60,17 +67,17 @@ export const find = async (uuid: string) => {
 
 export const list = async (params: UserListAttributes) => {
   const { user } = dbClient
-  const { scope } = params
-  const where = {}
+  const { scope, familyUuid, userUuid } = params
+  let listQuery: AvailableListArgs = { where: { uuid: userUuid }, select: userSelect }
 
   switch (scope) {
     case AvailableScopes.Family: {
-      where
+      listQuery = { ...listQuery, where: { familyUuid } }
       break
     }
     default:
       throw Error('Not available scope')
   }
 
-  return user.findMany({ where, select: userSelect })
+  return user.findMany(listQuery)
 }

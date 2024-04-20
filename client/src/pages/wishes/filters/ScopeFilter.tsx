@@ -27,6 +27,12 @@ export const ScopeFilter: React.FC<SelectProps> = (props): React.JSX.Element => 
   const [options, setOptions] = useState<FilterOptions[]>([])
 
   useEffect(() => {
+    if (!searchParams.get('scope')) {
+      setSearchParams({ scope: WishesAvailableScopes.Family })
+    }
+  }, [setSearchParams, searchParams])
+
+  useEffect(() => {
     if (usersData?.length) {
       const defaultOption: FilterOptions = { name: 'Family', scope: WishesAvailableScopes.Family }
       const familyUserOptions: FilterOptions[] = usersData.map(({ uuid, name }) => ({
@@ -61,7 +67,7 @@ export const ScopeFilter: React.FC<SelectProps> = (props): React.JSX.Element => 
       <Select bg="white" onChange={onChangeHandler} value={getDefaultValueFromParams(searchParams)} {...props}>
         {options.map(({ name, scope, uuid }) => (
           <option
-            key={`scope-filter-${scope}`}
+            key={`scope-filter-${scope}${uuid ? `-${uuid}` : ''}`}
             color="black"
             value={`${scope}${uuid ? `::${uuid}` : ''}`}
             aria-label="Scope filter"

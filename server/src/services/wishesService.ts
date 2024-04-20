@@ -7,10 +7,10 @@ export enum AvailableScopes {
 }
 
 interface WishesQueryParams {
-  currentUserUuid?: string
+  familyUuid?: string
   userUuid?: string
   isDone?: boolean
-  scope?: AvailableScopes
+  scope: AvailableScopes
 }
 
 interface WishesCreateAttributes {
@@ -37,29 +37,35 @@ const wishSelect: Prisma.WishSelect = {
   isDone: true,
 }
 
+interface ListQueryArgs {
+  select: typeof wishSelect
+  where?: { userUuid?: string; isDone?: boolean; user?: { family: { uuid: string } } }
+}
+
 export const list = async (queryParams: WishesQueryParams) => {
   const { wish } = dbClient
-  const {
-    currentUserUuid,
-    isDone = false,
-    scope = AvailableScopes.Family,
-  } = queryParams
+  const { familyUuid, isDone = false, scope = AvailableScopes.FamilyUser, userUuid } = queryParams
 
-  let where = {}
+  let listQuery: ListQueryArgs = { select: wishSelect }
   switch (scope) {
     case AvailableScopes.Family: {
-      where = { ...where, userUuid: currentUserUuid, isDone }
+      if (familyUuid) {
+        listQuery = {
+          ...listQuery,
+          where: { user: { family: { uuid: familyUuid } }, isDone },
+        }
+      }
       break
     }
     case AvailableScopes.FamilyUser: {
-      where = { ...where, userUuid: currentUserUuid, isDone }
+      listQuery = { ...listQuery, where: { userUuid, isDone } }
       break
     }
     default:
       throw Error('Not available scope')
   }
 
-  return wish.findMany({ where, select: wishSelect })
+  return wish.findMany(listQuery)
 }
 
 export const find = async (uuid: string) => {

@@ -20,7 +20,13 @@ router.get('/me', async (_req: Request, res: Response) => {
 
 router.get('/', async (req: Request, res: Response) => {
   try {
-    const users = await list({ scope: req.query.scope as AvailableScopes })
+    const params = {
+      scope: req.query.scope as AvailableScopes,
+      familyUuid: res.locals.user.familyUuid,
+      userUuid: res.locals.user.uuid,
+    }
+
+    const users = await list(params)
     res.status(200).json(users)
   } catch (error: any) {
     logger.error(error)

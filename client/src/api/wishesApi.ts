@@ -38,7 +38,11 @@ interface FetchQueryParams {
 const api = rootApi.injectEndpoints({
   endpoints: (build) => ({
     fetchWishes: build.query<WishResponse[], { params?: FetchQueryParams }>({
-      query: ({ params = {} }) => ({ url: `wishes/`, method: 'GET', params: params }),
+      query: ({ params }) => ({
+        url: `wishes/`,
+        method: 'GET',
+        params: params,
+      }),
       providesTags: ['WISH_LIST'],
     }),
     fetchWish: build.query<WishResponse, string | undefined>({
