@@ -22,18 +22,15 @@ export const ExpandableText = ({
   }, [isExpandable, children, limit, expanded])
 
   return (
-    <Text {...textProps}>
-      {viewedText}
+    <>
+      <Text {...textProps}>{viewedText}</Text>
       {isExpandable && (
-        <>
-          <br />
-          <Center m="8px">
-            <Button colorScheme="black" variant="link" size="md" onClick={onExpandClickHandler}>
-              {expanded ? 'Show less' : 'Show more'}
-            </Button>
-          </Center>
-        </>
+        <Center m="8px">
+          <Button colorScheme="black" variant="link" size="md" onClick={onExpandClickHandler}>
+            {expanded ? 'Show less' : 'Show full comment'}
+          </Button>
+        </Center>
       )}
-    </Text>
+    </>
   )
 }
