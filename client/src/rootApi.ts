@@ -5,7 +5,7 @@ import { navigate } from 'utils/navigation'
 const UNAUTHORIZED = 401
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: 'http://localhost:8000/api/',
+  baseUrl: import.meta.env.VITE_SERVER_HOST ? `${import.meta.env.VITE_SERVER_HOST}/api/` : 'http://localhost:8000/api/',
   credentials: 'include',
   mode: 'cors',
 })

@@ -39,7 +39,7 @@ router.post('/refresh', async (req: Request, res: Response) => {
       res.cookie('accessToken', accessToken, {
         maxAge: 900000, // 15 mins
         httpOnly: true,
-        domain: 'localhost',
+        domain: process.env.DOMAIN || 'localhost',
         path: '/',
         sameSite: 'strict',
         secure: false,
@@ -113,7 +113,7 @@ router.get('/oauth/google', async (req: Request, res: Response) => {
     res.cookie('accessToken', accessToken, {
       maxAge: 900000, // 15 mins
       httpOnly: true,
-      domain: 'localhost',
+      domain: process.env.DOMAIN || 'localhost',
       path: '/',
       sameSite: 'strict',
       secure: false,
@@ -122,7 +122,7 @@ router.get('/oauth/google', async (req: Request, res: Response) => {
     res.cookie('refreshToken', refreshToken, {
       maxAge: 3.154e10, // 1 year
       httpOnly: true,
-      domain: 'localhost',
+      domain: process.env.DOMAIN || 'localhost',
       path: '/',
       sameSite: 'strict',
       secure: false,

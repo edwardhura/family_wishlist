@@ -13,12 +13,13 @@
         ```
             GOOGLE_OAUTH2_CLIENT_ID="<USE YOUR CLIENT ID>"
             GOOGLE_OAUTH2_CLIENT_SECRET="<USE YOUR CLIENT SECRET>"
-            GOOGLE_OAUTH2_REDIRECT_URL="http://localhost:8000/api/sessions/oauth/google"
+            GOOGLE_OAUTH2_REDIRECT_URL="http://localhost:8000/api/sessions/oauth/google" # <USE YOUR REDIRECT URL>
             GOOGLE_OAUTH2_TOKEN_URL="https://accounts.google.com/o/oauth2/token"
             GOOGLE_OAUTH2_USERINFO_URL="https://www.googleapis.com/oauth2/v1/userinfo"
             SQLITE_DATABASE_URL="file:./dev.db"
             ORIGIN='http://localhost:3000'
             PORT='8000'
+            DOMAIN='localhost'
             ACCESS_TOKEN_TTL='15m'
             REFRESH_TOKEN_TTL='1y'
             RSA_PRIVATE_KEY="<GENERATED RSA PRIVATE>"
@@ -28,9 +29,10 @@
         ```
             VITE_GOOGLE_OAUTH2_URI="https://accounts.google.com/o/oauth2/v2/auth"
             VITE_GOOGLE_OAUTH2_CLIENT_ID="<USE YOUR CLIENT ID>"
-            VITE_GOOGLE_OAUTH2_REDIRECT_URI="http://localhost:8000/api/sessions/oauth/google"
+            VITE_GOOGLE_OAUTH2_REDIRECT_URI="http://localhost:8000/api/sessions/oauth/google"  # <USE YOUR REDIRECT URL>
             VITE_GOOGLE_OAUTH2_EMAIL_SCOPE="https://www.googleapis.com/auth/userinfo.email"
             VITE_GOOGLE_OAUTH2_PROFILE_SCOPE="https://www.googleapis.com/auth/userinfo.profile"
+            VITE_SERVER_HOST="http://localhost:8000"
         ```
 5) Run dev migrations with `yarn migration:dev`
 6) Install recommended extensions in VS Code.
