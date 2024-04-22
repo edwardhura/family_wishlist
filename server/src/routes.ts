@@ -5,7 +5,7 @@ import apiWishesController from './controllers/apiWishesController'
 import apiFamiliesController from './controllers/apiFamiliesController'
 
 const routes = (app: Express) => {
-  app.get('/healthcheck', (_req: Request, res: Response) => res.sendStatus(200))
+  app.get('/api/healthcheck', (_req: Request, res: Response) => res.sendStatus(200))
 
   app.use('/api/sessions', apiSessionsController)
   app.use('/api/users', apiUsersController)

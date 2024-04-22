@@ -33,7 +33,7 @@
             VITE_GOOGLE_OAUTH2_REDIRECT_URI="http://localhost:8000/api/sessions/oauth/google"  # <USE YOUR REDIRECT URL>
             VITE_GOOGLE_OAUTH2_EMAIL_SCOPE="https://www.googleapis.com/auth/userinfo.email"
             VITE_GOOGLE_OAUTH2_PROFILE_SCOPE="https://www.googleapis.com/auth/userinfo.profile"
-            VITE_SERVER_HOST="http://localhost:8000"
+            VITE_SERVER_HOST_API="http://localhost:8000/api/"
         ```
 5) Run dev migrations with `yarn migration:dev`
 6) Install recommended extensions in VS Code.
@@ -60,9 +60,10 @@
 6) Install NGINX - `sudo apt-get install nginx`
 7) Run `yarn install` in `client` and `server`
 8) Backend SERVER setup:
-    - Install PM2 `npm install pm2 -g` (process manager)
+    - Install PM2 (process manager): `npm install pm2 -g` or `yarn global add pm2`
     - Build server: `yarn build`. Start PM2 process in `/server` folder: `pm2 start yarn --name server -- server`. Add ubuntu startup launcher: `pm2 startup`
     - Setup DB:
+        - `yarn global add dotenv-cli`
         - Run first time - `yarn prisma:prod db push`
 9) Frontend client setup:
     - Build `yarn build`
@@ -93,6 +94,15 @@
             listen  2000;
             root    /usr/share/nginx/html;
             include /etc/nginx/mime.types;
+
+            location /api {
+                proxy_pass http://localhost:2010;
+                proxy_http_version 1.1;
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection 'upgrade';
+                proxy_set_header Host $host;
+                proxy_cache_bypass $http_upgrade;
+            }
 
             location / {
                 try_files $uri $uri/ /index.html;
