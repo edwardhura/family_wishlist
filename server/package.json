@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "nodemon ./src/app.ts",
     "dev:debug": "nodemon --inspect ./src/app.ts",
-    "prisma:cli": "dotenv -e .env.development -- yarn prisma"
+    "prisma:cli": "dotenv -e .env.development -- yarn prisma",
+    "build": "NODE_ENV=production npx tsc",
+    "server": "NODE_ENV=production node build/app.js"
   },
   "keywords": [],
   "author": "",
