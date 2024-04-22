@@ -67,13 +67,13 @@
         - Run first time - `yarn prisma:prod db push`
 9) Frontend client setup:
     - Build `yarn build`
-    - Copy static files: `sudo cp -r build/ /usr/share/nginx/html`
 10) Final NGINX entry point setup:
     ```
     $ cd /etc/nginx/
     $ sudo cp nginx.conf nginx.conf.backup
     $ sudo nano nginx.conf 
     $ cd ~/family_wishlist/client
+    $ sudo rm -rf /usr/share/nginx/html/*
     $ sudo cp -r build/* /usr/share/nginx/html
     $ sudo service nginx restart
     ```
