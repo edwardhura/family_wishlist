@@ -20,8 +20,8 @@ router.delete('/', requireUser, async (req: Request, res: Response) => {
     if (session.valid) {
       res.status(403).json({ success: false })
     } else {
-      res.clearCookie('accessToken', { path: '/' })
-      res.clearCookie('refreshToken', { path: '/' })
+      res.clearCookie('accessToken', { domain: process.env.DOMAIN || 'localhost', path: '/' })
+      res.clearCookie('refreshToken', { domain: process.env.DOMAIN || 'localhost', path: '/' })
       res.status(200).json({ success: true })
     }
   } catch (error: any) {
