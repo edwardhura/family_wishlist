@@ -11,6 +11,7 @@
     - Use credentials to fill in `${projectRootFolder}/server/.env.${process.env.NODE_ENV}` file
         `.env.${process.env.NODE_ENV}` FILE:
         ```
+            NODE_ENV=production # for prod
             GOOGLE_OAUTH2_CLIENT_ID="<USE YOUR CLIENT ID>"
             GOOGLE_OAUTH2_CLIENT_SECRET="<USE YOUR CLIENT SECRET>"
             GOOGLE_OAUTH2_REDIRECT_URL="http://localhost:8000/api/sessions/oauth/google" # <USE YOUR REDIRECT URL>
@@ -47,3 +48,79 @@
     - Client: `yarn lint`, `yarn prettier`
 4) Helper commands:
     - Server DB client: `yarn prisma:cli` - development env CLI.
+
+
+## Server setup (RPi5 with ubuntu server)
+`server` - server user
+1) Create user under root (switch on root - `sudo -s`): `adduser server`
+2) Give user SUDO permissions: `sudo usermod -aG sudo server`
+3) Generate server SSH and add SSH Key to Github white list.
+4) Install Node and yarn.
+5) Pull files from GIT.
+6) Install NGINX - `sudo apt-get install nginx`
+7) Run `yarn install` in `client` and `server`
+8) Backend SERVER setup:
+    - Install PM2 `npm install pm2 -g` (process manager)
+    - Build server: `yarn build`. Start PM2 process in `/server` folder: `pm2 start yarn --name server -- server`. Add ubuntu startup launcher: `pm2 startup`
+    - Setup DB:
+        - Run first time - `yarn prisma:prod db push`
+9) Frontend client setup:
+    - Build `yarn build`
+    - Copy static files: `sudo cp -r build/ /usr/share/nginx/html`
+10) Final NGINX entry point setup:
+    ```
+    $ cd /etc/nginx/
+    $ sudo cp nginx.conf nginx.conf.backup
+    $ sudo nano nginx.conf 
+    $ cd ~/family_wishlist/client
+    $ sudo cp -r build/* /usr/share/nginx/html
+    $ sudo service nginx restart
+    ```
+
+
+## NGINX Config
+
+```
+    user server;
+    worker_processes    auto;
+
+    events { worker_connections 1024; }
+
+    http {
+        server {
+            server_tokens off;
+
+            listen  2000;
+            root    /usr/share/nginx/html;
+            include /etc/nginx/mime.types;
+
+            location / {
+                try_files $uri $uri/ /index.html;
+            }
+
+            gzip            on;
+            gzip_vary       on;
+            gzip_http_version  1.0;
+            gzip_comp_level 5;
+            gzip_types
+                            application/atom+xml
+                            application/javascript
+                            application/json
+                            application/rss+xml
+                            application/vnd.ms-fontobject
+                            application/x-font-ttf
+                            application/x-web-app-manifest+json
+                            application/xhtml+xml
+                            application/xml
+                            font/opentype
+                            image/svg+xml
+                            image/x-icon
+                            text/css
+                            text/plain
+                            text/x-component;
+            gzip_proxied    no-cache no-store private expired auth;
+            gzip_min_length 256;
+            gunzip          on;
+        }
+    }
+```
