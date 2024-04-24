@@ -1,0 +1,178 @@
+{
+  "todo": [
+    {
+      "assignedTo": {
+        "name": "Ed"
+      },
+      "category": "Client UI",
+      "creation_time": "2024-04-24T10:17:48.100Z",
+      "description": {
+        "content": "Make copy button work.",
+        "mime": "text/markdown"
+      },
+      "details": {
+        "content": "Make copy button work with HTTP or make HTTPs with adding sertifiates.",
+        "mime": "text/markdown"
+      },
+      "id": "5",
+      "prio": 3,
+      "references": [],
+      "title": "Copy clipboard not worked for HTTP",
+      "type": "bug"
+    },
+    {
+      "assignedTo": {
+        "name": "Ed"
+      },
+      "category": "Client UI",
+      "creation_time": "2024-04-24T10:03:04.310Z",
+      "description": {
+        "content": "AcR: WHEN click edit Card THEN opened card edit form AND priority is not preselected and always low by default.\nExR: WHEN click edit Card THEN opened card edit form AND priority is preselected with value (expl. priority high card should be high radio pres",
+        "mime": "text/markdown"
+      },
+      "id": "1",
+      "prio": 3,
+      "references": [],
+      "title": "Edit wish card priority preselect",
+      "type": "bug"
+    },
+    {
+      "assignedTo": {
+        "name": "Ed"
+      },
+      "category": "Client UI",
+      "creation_time": "2024-04-24T10:07:19.711Z",
+      "description": {
+        "content": "- [] Add theme configuration for Chakra UI.\n- [] Refactored actual components with theme usage.",
+        "mime": "text/markdown"
+      },
+      "details": {
+        "content": "- [] Add theme configuration for Chakra UI.\n- [] Refactored actual components with theme usage.",
+        "mime": "text/markdown"
+      },
+      "id": "2",
+      "prio": 2,
+      "references": [],
+      "title": "Add Chakra Theme confuguration"
+    },
+    {
+      "assignedTo": {
+        "name": "Ed"
+      },
+      "category": "Client UI",
+      "creation_time": "2024-04-24T10:20:22.331Z",
+      "description": {
+        "content": "Enable https wit SSL sertificate to make possibe work with navigator for ui.",
+        "mime": "text/markdown"
+      },
+      "details": {
+        "content": "Investigate in SSL sertificates how configure and setup with Express and React App.",
+        "mime": "text/markdown"
+      },
+      "id": "6",
+      "prio": 2,
+      "references": [
+        "5"
+      ],
+      "title": "Enable https wit SSL sertificate"
+    },
+    {
+      "assignedTo": {
+        "name": "Ed"
+      },
+      "category": "Backend DB",
+      "creation_time": "2024-04-24T10:10:41.410Z",
+      "description": {
+        "content": "- [] Actual services should be refactored based on familiService as ref for refactoring and best practices.\n- [] Look again on queries, probabl make sense refactor it a bit.\n- [] Think about types for select (Find possible best practices for TS).",
+        "mime": "text/markdown"
+      },
+      "details": {
+        "content": "- [] Actual services should be refactored based on familiService as ref for refactoring and best practices.\n- [] Look again on queries, probabl make sense refactor it a bit.\n- [] Think about types for select (Find possible best practices for TS).",
+        "mime": "text/markdown"
+      },
+      "id": "3",
+      "prio": 2,
+      "references": [],
+      "title": "Refactored actual services with Typescript"
+    },
+    {
+      "assignedTo": {
+        "name": "Ed"
+      },
+      "category": "Client Tests",
+      "creation_time": "2024-04-24T10:26:48.957Z",
+      "description": {
+        "content": "Add backend tests\n- [] Service specs\n- [] Request specs\n- [] Authentification ???",
+        "mime": "text/markdown"
+      },
+      "details": {
+        "content": "Add backend tests\n- [] Service specs\n- [] Request specs\n- [] Authentification ???",
+        "mime": "text/markdown"
+      },
+      "id": "8",
+      "prio": 2,
+      "references": [],
+      "title": "Tests for Backend"
+    },
+    {
+      "assignedTo": {
+        "name": "Ed"
+      },
+      "category": "Backend Tests",
+      "creation_time": "2024-04-24T10:29:28.793Z",
+      "description": {
+        "content": "Based on desigin I made, should be implemented specs (component tests, end-to-end tests, functional tests with mock requests).\n- [] Configure test env for client\n- [] Make some UI component tests\n",
+        "mime": "text/markdown"
+      },
+      "details": {
+        "content": "Based on desigin I made, should be implemented specs (component tests, end-to-end tests, functional tests with mock requests).\n- [] Configure test env for client\n- [] Make some UI component tests\n",
+        "mime": "text/markdown"
+      },
+      "id": "9",
+      "prio": 2,
+      "references": [],
+      "title": "Tests for Client"
+    },
+    {
+      "assignedTo": {
+        "name": "Ed"
+      },
+      "category": "Linter",
+      "creation_time": "2024-04-24T10:15:19.331Z",
+      "description": {
+        "content": "Configure Linter for Backend server part",
+        "mime": "text/markdown"
+      },
+      "details": {
+        "content": "Configure Linter for Backend server part.",
+        "mime": "text/markdown"
+      },
+      "id": "4",
+      "prio": 1,
+      "references": [],
+      "title": "Linter for Backend server part"
+    },
+    {
+      "assignedTo": {
+        "name": "Ed"
+      },
+      "category": "Backend",
+      "creation_time": "2024-04-24T10:22:58.580Z",
+      "description": {
+        "content": "Refactor backend. Make more clear structure, remove unused code and configure normal logs.",
+        "mime": "text/markdown"
+      },
+      "details": {
+        "content": "- [] Configure logs\n- [] Clear code",
+        "mime": "text/markdown"
+      },
+      "id": "7",
+      "prio": 1,
+      "references": [],
+      "title": "Refactor Backend"
+    }
+  ],
+  "in-progress": [],
+  "testing": [],
+  "done": []
+}
