@@ -5,7 +5,7 @@ const api = rootApi.injectEndpoints({
   endpoints: (build) => ({
     removeSession: build.mutation<{ success: boolean }, void>({
       query: () => ({ url: '/sessions/', method: 'DELETE' }),
-      invalidatesTags: ['USER_ME'],
+      invalidatesTags: [{ type: 'User', id: 'ME' }],
       onQueryStarted: async (_, { queryFulfilled }) => {
         try {
           await queryFulfilled

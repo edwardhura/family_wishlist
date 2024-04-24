@@ -4,6 +4,26 @@
       "assignedTo": {
         "name": "Ed"
       },
+      "category": "Backend",
+      "creation_time": "2024-04-24T12:25:41.552Z",
+      "description": {
+        "content": "AcR: HEN Another user click Complete/Done THEN Card assigned to him\nExR: WHEN Another user click Complete/Done THEN Card should NOT assigned to him",
+        "mime": "text/markdown"
+      },
+      "details": {
+        "content": "AcR: HEN Another user click Complete/Done THEN Card assigned to him\nExR: WHEN Another user click Complete/Done THEN Card should NOT assigned to him\n\nshould be fixed for remove and edit too...",
+        "mime": "text/markdown"
+      },
+      "id": "10",
+      "prio": 3,
+      "references": [],
+      "title": "Another user click Complete/Done and Card assigned to him",
+      "type": "bug"
+    },
+    {
+      "assignedTo": {
+        "name": "Ed"
+      },
       "category": "Client UI",
       "creation_time": "2024-04-24T10:17:48.100Z",
       "description": {
@@ -18,22 +38,6 @@
       "prio": 3,
       "references": [],
       "title": "Copy clipboard not worked for HTTP",
-      "type": "bug"
-    },
-    {
-      "assignedTo": {
-        "name": "Ed"
-      },
-      "category": "Client UI",
-      "creation_time": "2024-04-24T10:03:04.310Z",
-      "description": {
-        "content": "AcR: WHEN click edit Card THEN opened card edit form AND priority is not preselected and always low by default.\nExR: WHEN click edit Card THEN opened card edit form AND priority is preselected with value (expl. priority high card should be high radio pres",
-        "mime": "text/markdown"
-      },
-      "id": "1",
-      "prio": 3,
-      "references": [],
-      "title": "Edit wish card priority preselect",
       "type": "bug"
     },
     {
@@ -174,5 +178,22 @@
   ],
   "in-progress": [],
   "testing": [],
-  "done": []
+  "done": [
+    {
+      "assignedTo": {
+        "name": "Ed"
+      },
+      "category": "Client UI",
+      "creation_time": "2024-04-24T10:03:04.310Z",
+      "description": {
+        "content": "AcR: WHEN click edit Card THEN opened card edit form AND priority is not preselected and always low by default.\nExR: WHEN click edit Card THEN opened card edit form AND priority is preselected with value (expl. priority high card should be high radio pres",
+        "mime": "text/markdown"
+      },
+      "id": "1",
+      "prio": 3,
+      "references": [],
+      "title": "Edit wish card priority preselect",
+      "type": "bug"
+    }
+  ]
 }

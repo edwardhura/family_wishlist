@@ -36,5 +36,5 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
 export const rootApi = createApi({
   baseQuery: baseQueryWithReauth,
   endpoints: () => ({}),
-  tagTypes: ['WISH_LIST', 'USER_ME'],
+  tagTypes: ['Wish', 'User', 'Family'],
 })

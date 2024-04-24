@@ -43,14 +43,18 @@ const api = rootApi.injectEndpoints({
         method: 'GET',
         params: params,
       }),
-      providesTags: ['WISH_LIST'],
+      providesTags: (result) =>
+        result?.length
+          ? [...result.map(({ uuid }) => ({ type: 'Wish' as const, id: uuid })), { type: 'Wish', id: 'LIST' }]
+          : [{ type: 'Wish', id: 'LIST' }],
     }),
     fetchWish: build.query<WishResponse, string | undefined>({
       query: (uuid) => ({ url: `wishes/${uuid}`, method: 'GET' }),
+      providesTags: (_result, _error, uuid) => [{ type: 'Wish', id: uuid }],
     }),
     createWish: build.mutation<WishResponse, CreateWishParams>({
       query: (params) => ({ url: 'wishes/', method: 'POST', body: params }),
-      invalidatesTags: ['WISH_LIST'],
+      invalidatesTags: [{ type: 'Wish', id: 'LIST' }],
     }),
     updateWish: build.mutation<WishResponse, UpdateWishParams | CompleteWishParams>({
       query: (params) => ({
@@ -58,11 +62,11 @@ const api = rootApi.injectEndpoints({
         method: 'PUT',
         body: params,
       }),
-      invalidatesTags: ['WISH_LIST'],
+      invalidatesTags: (_result, _error, args) => [{ type: 'Wish', id: args.uuid }],
     }),
     removeWish: build.mutation<void, string>({
       query: (uuid) => ({ url: `wishes/${uuid}`, method: 'DELETE' }),
-      invalidatesTags: ['WISH_LIST'],
+      invalidatesTags: [{ type: 'Wish', id: 'LIST' }],
     }),
   }),
 })

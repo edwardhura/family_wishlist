@@ -14,7 +14,7 @@ import {
   Textarea,
   VStack,
 } from '@chakra-ui/react'
-import { useForm, SubmitHandler } from 'react-hook-form'
+import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 import { PriceInput } from 'components'
 import { useCreateWishMutation, useUpdateWishMutation, useFetchWishQuery } from 'api/wishesApi'
 import React, { useEffect } from 'react'
@@ -46,6 +46,7 @@ export const WishForm = ({ uuid }: { uuid?: string }): JSX.Element => {
     register,
     formState: { errors },
     getValues,
+    control,
     reset,
   } = useForm<FormInput>({
     defaultValues: { priority: Priority.low, price: 0, title: data?.title },
@@ -59,8 +60,8 @@ export const WishForm = ({ uuid }: { uuid?: string }): JSX.Element => {
 
   useEffect(() => {
     if (isPreloaded) {
-      const { priority = Priority.low, ...restData } = data
-      reset({ ...restData, priority })
+      const { priority, ...restData } = data
+      reset({ ...restData, priority: priority })
     }
   }, [reset, data, isPreloaded])
 
@@ -77,8 +78,8 @@ export const WishForm = ({ uuid }: { uuid?: string }): JSX.Element => {
   }
 
   const priorityFieldId = 'priority'
-  const defaultPriority = getValues(priorityFieldId)
-
+  const priorityFieldValue = getValues(priorityFieldId)
+  console.log(priorityFieldValue)
   return (
     <form onSubmit={onSubmitHandler}>
       <VStack spacing="2em" divider={<StackDivider borderColor="gray.200" />}>
@@ -103,38 +104,45 @@ export const WishForm = ({ uuid }: { uuid?: string }): JSX.Element => {
           </FormControl>
 
           <FormControl isInvalid={!!errors.priority}>
-            <FormLabel htmlFor="priority"> Priority </FormLabel>
-            <RadioGroup defaultValue={defaultPriority}>
-              <Stack spacing={5} direction="row">
-                <Radio
-                  bg="white"
-                  size="md"
-                  value={Priority.low}
-                  colorScheme={PrioritySchema.low}
-                  {...register(priorityFieldId)}
-                >
-                  Low
-                </Radio>
-                <Radio
-                  bg="white"
-                  size="md"
-                  colorScheme={PrioritySchema.medium}
-                  value={Priority.medium}
-                  {...register(priorityFieldId)}
-                >
-                  Medium
-                </Radio>
-                <Radio
-                  bg="white"
-                  size="md"
-                  colorScheme={PrioritySchema.high}
-                  value={Priority.high}
-                  {...register(priorityFieldId)}
-                >
-                  High
-                </Radio>
-              </Stack>
-            </RadioGroup>
+            <FormLabel htmlFor={priorityFieldId}> Priority </FormLabel>
+            <Controller
+              rules={{ required: true }}
+              control={control}
+              name={priorityFieldId}
+              render={({ field }) => (
+                <RadioGroup {...field}>
+                  <Stack spacing={5} direction="row">
+                    <Radio
+                      bg="white"
+                      size="md"
+                      value={Priority.low}
+                      colorScheme={PrioritySchema.low}
+                      aria-label={Priority.low}
+                    >
+                      Low
+                    </Radio>
+                    <Radio
+                      bg="white"
+                      size="md"
+                      colorScheme={PrioritySchema.medium}
+                      value={Priority.medium}
+                      aria-label={Priority.medium}
+                    >
+                      Medium
+                    </Radio>
+                    <Radio
+                      bg="white"
+                      size="md"
+                      colorScheme={PrioritySchema.high}
+                      value={Priority.high}
+                      aria-label={Priority.high}
+                    >
+                      High
+                    </Radio>
+                  </Stack>
+                </RadioGroup>
+              )}
+            />
           </FormControl>
         </HStack>
         <Flex w="100%" flexDirection="column" gap="2em">

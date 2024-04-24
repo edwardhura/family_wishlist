@@ -1,4 +1,4 @@
-import { Prisma } from '@prisma/client'
+import { Prisma, PrismaClient } from '@prisma/client'
 import { dbClient } from '../db/prismaClient'
 import { randomBytes } from 'crypto'
 import dayjs from 'dayjs'
@@ -48,17 +48,24 @@ export const create = async ({
   return familyRecord
 }
 
+type FamilyUpdateBody = Prisma.Args<typeof dbClient.family, 'update'>['data']
 export const update = async ({
   uuid,
   userUuid,
   ...data
 }: FamilyUpdateAttributes): Promise<Prisma.FamilyGetPayload<{ select: typeof familySelect }>> => {
   const { family } = dbClient
-  const familyRecord = await family.update({
+  const query = {
     where: { uuid },
-    data: { ...data, members: { connect: { uuid: userUuid } } },
+    data: data as FamilyUpdateBody,
     select: familySelect,
-  })
+  }
+
+  if (userUuid) {
+    query.data = { ...query.data, members: { connect: { uuid: userUuid } } }
+  }
+
+  const familyRecord = await family.update(query)
 
   return familyRecord
 }
