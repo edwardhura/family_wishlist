@@ -15,6 +15,7 @@ import {
 import { useRemoveWishMutation, useUpdateWishMutation } from 'api/wishesApi'
 import { ExpandableText } from 'components'
 import { useApiStatusNotification } from 'hooks/useApiStatusNotification'
+import { useEntityOwnByMe } from 'hooks/useEntityOwnByMe'
 import React, { useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Priority, PriorityColor } from 'types'
@@ -28,6 +29,7 @@ interface CardProps {
   link: string
   price: number
   isDone: boolean
+  userUuid: string
 }
 
 const Cap = ({ priority, isDone = false }: { priority: Priority; isDone?: boolean }): React.JSX.Element => (
@@ -42,8 +44,18 @@ const Cap = ({ priority, isDone = false }: { priority: Priority; isDone?: boolea
   />
 )
 
-export const CardItem = ({ title, uuid, isDone, comment, priority, link, price }: CardProps): React.JSX.Element => {
+export const CardItem = ({
+  title,
+  uuid,
+  isDone,
+  comment,
+  priority,
+  link,
+  price,
+  userUuid,
+}: CardProps): React.JSX.Element => {
   const navigate = useNavigate()
+  const isMyCard = useEntityOwnByMe(userUuid)
   const [remove, { isLoading: removeIsLoading, isSuccess: removeIsSuccess, isError: removeIsError }] =
     useRemoveWishMutation()
   const [update, { isLoading: updateIsLoading, isSuccess: updateIsSuccess, isError: isUpdateError }] =
@@ -91,6 +103,7 @@ export const CardItem = ({ title, uuid, isDone, comment, priority, link, price }
           icon={isDone ? <CheckCircleIcon color="green.500" /> : <CheckIcon />}
           onClick={onCompleteClick}
           isLoading={updateIsLoading}
+          isDisabled={!isMyCard}
         />
         <IconButton
           flex="1"
@@ -98,7 +111,7 @@ export const CardItem = ({ title, uuid, isDone, comment, priority, link, price }
           aria-label="Edit"
           icon={<EditIcon />}
           onClick={onEditClick}
-          isDisabled={isDone}
+          isDisabled={isDone || !isMyCard}
         />
         <IconButton
           flex="1"
@@ -107,6 +120,7 @@ export const CardItem = ({ title, uuid, isDone, comment, priority, link, price }
           icon={<CloseIcon />}
           onClick={onRemoveClick}
           isLoading={removeIsLoading}
+          isDisabled={!isMyCard}
         />
       </CardFooter>
     </Card>

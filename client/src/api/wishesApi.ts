@@ -10,6 +10,7 @@ interface WishResponse {
   link: string
   price: number
   isDone: boolean
+  userUuid: string
 }
 
 interface CreateWishParams {
@@ -43,6 +44,7 @@ const api = rootApi.injectEndpoints({
         method: 'GET',
         params: params,
       }),
+      keepUnusedDataFor: 5,
       providesTags: (result) =>
         result?.length
           ? [...result.map(({ uuid }) => ({ type: 'Wish' as const, id: uuid })), { type: 'Wish', id: 'LIST' }]

@@ -6,13 +6,6 @@ export enum AvailableScopes {
   FamilyUser = 'user',
 }
 
-interface WishesQueryParams {
-  familyUuid?: string
-  userUuid?: string
-  isDone?: boolean
-  scope: AvailableScopes
-}
-
 interface WishesCreateAttributes {
   title: string
   priority: string
@@ -22,12 +15,20 @@ interface WishesCreateAttributes {
   userUuid: string
 }
 
-interface WishesUpdateAttributes extends WishesCreateAttributes {
+interface WishesUpdateAttributes extends Omit<WishesCreateAttributes, 'userUuid'> {
+  userUuid?: string
   isDone?: boolean
   uuid: string
 }
 
-const wishSelect: Prisma.WishSelect = {
+interface WishesQueryParams {
+  familyUuid?: string
+  userUuid?: string
+  isDone?: boolean
+  scope: AvailableScopes
+}
+
+const wishListSelect = {
   uuid: true,
   priority: true,
   comment: true,
@@ -35,18 +36,21 @@ const wishSelect: Prisma.WishSelect = {
   link: true,
   price: true,
   isDone: true,
-}
+  userUuid: true,
+} satisfies Prisma.WishSelect
 
 interface ListQueryArgs {
-  select: typeof wishSelect
+  select: typeof wishListSelect
   where?: { userUuid?: string; isDone?: boolean; user?: { family: { uuid: string } } }
 }
 
-export const list = async (queryParams: WishesQueryParams) => {
+export const list = async (
+  queryParams: WishesQueryParams,
+): Promise<Prisma.WishGetPayload<{ select: typeof wishListSelect }>[] | null> => {
   const { wish } = dbClient
   const { familyUuid, isDone = false, scope = AvailableScopes.FamilyUser, userUuid } = queryParams
 
-  let listQuery: ListQueryArgs = { select: wishSelect }
+  let listQuery: ListQueryArgs = { select: wishListSelect }
   switch (scope) {
     case AvailableScopes.Family: {
       if (familyUuid) {
@@ -65,30 +69,40 @@ export const list = async (queryParams: WishesQueryParams) => {
       throw Error('Not available scope')
   }
 
-  return wish.findMany(listQuery)
+  const wishListRecords = await wish.findMany(listQuery)
+  return wishListRecords
 }
 
-export const find = async (uuid: string) => {
+export const find = async (uuid: string): Promise<Prisma.WishGetPayload<{ select: typeof wishListSelect }> | null> => {
   const { wish } = dbClient
 
-  return wish.findFirst({ where: { uuid }, select: wishSelect })
+  const wishRecord = await wish.findFirst({ where: { uuid }, select: wishListSelect })
+  return wishRecord
 }
 
-export const create = async (wishParams: WishesCreateAttributes) => {
+export const create = async (
+  wishParams: WishesCreateAttributes,
+): Promise<Prisma.WishGetPayload<{ select: typeof wishListSelect }> | null> => {
   const { wish } = dbClient
-  return wish.create({ data: wishParams, select: wishSelect })
+  const wishRecord = await wish.create({ data: wishParams, select: wishListSelect })
+  return wishRecord
 }
 
-export const update = async (wishParams: WishesUpdateAttributes) => {
+export const update = async (
+  wishParams: WishesUpdateAttributes,
+): Promise<Prisma.WishGetPayload<{ select: typeof wishListSelect }> | null> => {
   const { wish } = dbClient
-  return wish.update({
+  const wishRecord = await wish.update({
     where: { uuid: wishParams.uuid },
     data: wishParams,
-    select: wishSelect,
+    select: wishListSelect,
   })
+  return wishRecord
 }
 
-export const destroy = async (uuid: string) => {
+export const destroy = async (
+  uuid: string,
+): Promise<Prisma.WishGetPayload<{ select: typeof wishListSelect }> | null> => {
   const { wish } = dbClient
   return wish.delete({ where: { uuid } })
 }

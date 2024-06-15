@@ -14,7 +14,18 @@ interface IndexQueryParams {
   userUuid?: string
 }
 
-router.get('/', async (req: Request<IndexQueryParams>, res: Response) => {
+interface WishResponse {
+  uuid: string
+  title: string
+  comment: string | null
+  priority: string
+  link: string | null
+  price: number | null
+  isDone: boolean
+  userUuid: string
+}
+
+router.get('/', async (req: Request<IndexQueryParams>, res: Response<WishResponse[] | null>) => {
   try {
     const wishes = await list({
       familyUuid: res.locals.user.familyUuid,
@@ -29,7 +40,7 @@ router.get('/', async (req: Request<IndexQueryParams>, res: Response) => {
   }
 })
 
-router.get('/:uuid', async (req: Request<{ uuid: string }>, res: Response) => {
+router.get('/:uuid', async (req: Request<{ uuid: string }>, res: Response<WishResponse | null>) => {
   try {
     const wish = await find(req.params.uuid)
     res.status(200).json(wish)
@@ -47,7 +58,7 @@ interface CreateParams {
   price: number
 }
 
-router.post('/', async (req: Request<CreateParams>, res: Response) => {
+router.post('/', async (req: Request<CreateParams>, res: Response<WishResponse | null>) => {
   try {
     const createParams = {
       title: req.body.title as string,
@@ -76,7 +87,7 @@ interface UpdateParams {
   isDone: boolean
 }
 
-router.put('/:uuid', async (req: Request<UpdateParams>, res: Response) => {
+router.put('/:uuid', async (req: Request<UpdateParams>, res: Response<WishResponse | null>) => {
   try {
     const updateParams = {
       uuid: req.params.uuid as string,
@@ -86,7 +97,6 @@ router.put('/:uuid', async (req: Request<UpdateParams>, res: Response) => {
       link: req.body.link as string,
       price: Number(req.body.price) as number,
       isDone: req.body.isDone as boolean,
-      userUuid: res.locals.user.uuid as string,
     }
 
     const wish = await update(updateParams)
@@ -97,7 +107,7 @@ router.put('/:uuid', async (req: Request<UpdateParams>, res: Response) => {
   }
 })
 
-router.delete('/:uuid', async (req: Request, res: Response) => {
+router.delete('/:uuid', async (req: Request<{ uuid: string }>, res: Response<{ success: boolean }>) => {
   try {
     await destroy(req.params.uuid as string)
     res.status(200).json({ success: true })
