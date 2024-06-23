@@ -16,10 +16,13 @@ export const FiltersBar = (): React.JSX.Element => {
   }
 
   return (
-    <Flex margin="1em 0" gap="2em">
-      {userMe?.familyUuid && <ScopeFilter w="24em" />}
-      <Spacer />
-      <IsDoneFilter />
+    <Flex margin="1em 0" gap="2em" flexDirection={['column', 'column', 'row']}>
+      {userMe?.familyUuid && <ScopeFilter w={['1fr', '24em']} />}
+      <Spacer display={['none', 'none', 'block']} />
+      <Flex>
+        <Spacer display={['block', 'block', 'none']} />
+        <IsDoneFilter />
+      </Flex>
     </Flex>
   )
 }
