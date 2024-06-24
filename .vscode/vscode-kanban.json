@@ -156,9 +156,41 @@
       "title": "Refactor Backend"
     }
   ],
-  "in-progress": [],
+  "in-progress": [
+    {
+      "assignedTo": {
+        "name": "Ed"
+      },
+      "category": "Client UI",
+      "creation_time": "2024-06-23T06:17:31.932Z",
+      "id": "11",
+      "prio": 3,
+      "references": [],
+      "title": "Mobile View"
+    }
+  ],
   "testing": [],
   "done": [
+    {
+      "assignedTo": {
+        "name": "Ed"
+      },
+      "category": "Backend",
+      "creation_time": "2024-04-24T12:25:41.552Z",
+      "description": {
+        "content": "AcR: HEN Another user click Complete/Done THEN Card assigned to him\nExR: WHEN Another user click Complete/Done THEN Card should NOT assigned to him",
+        "mime": "text/markdown"
+      },
+      "details": {
+        "content": "AcR: HEN Another user click Complete/Done THEN Card assigned to him\nExR: WHEN Another user click Complete/Done THEN Card should NOT assigned to him\n\nshould be fixed for remove and edit too...",
+        "mime": "text/markdown"
+      },
+      "id": "10",
+      "prio": 3,
+      "references": [],
+      "title": "Another user click Complete/Done and Card assigned to him",
+      "type": "bug"
+    },
     {
       "assignedTo": {
         "name": "Ed"

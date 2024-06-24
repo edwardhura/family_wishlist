@@ -9,7 +9,7 @@ export const Content = (): JSX.Element => {
   const { data: wishes } = useFetchWishesQuery({ params: queryParams })
 
   return (
-    <Grid w="100%" gap={8} templateColumns="repeat(3, 1fr)" padding="1em 0 3em">
+    <Grid w="100%" gap={8} templateColumns={['repeat(1, 1fr)', 'repeat(1, 1fr)', 'repeat(3, 1fr)']} padding="1em 0 3em">
       {wishes?.map((wish) => <Card key={`wish-${wish.uuid}`} {...wish} />)}
     </Grid>
   )

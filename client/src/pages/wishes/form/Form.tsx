@@ -4,7 +4,6 @@ import {
   Flex,
   FormControl,
   FormLabel,
-  HStack,
   Input,
   Radio,
   RadioGroup,
@@ -45,7 +44,6 @@ export const WishForm = ({ uuid }: { uuid?: string }): JSX.Element => {
     handleSubmit,
     register,
     formState: { errors },
-    getValues,
     control,
     reset,
   } = useForm<FormInput>({
@@ -78,12 +76,11 @@ export const WishForm = ({ uuid }: { uuid?: string }): JSX.Element => {
   }
 
   const priorityFieldId = 'priority'
-  const priorityFieldValue = getValues(priorityFieldId)
-  console.log(priorityFieldValue)
+
   return (
     <form onSubmit={onSubmitHandler}>
       <VStack spacing="2em" divider={<StackDivider borderColor="gray.200" />}>
-        <HStack spacing="1em">
+        <Stack direction={['column', 'column', 'row']} spacing="1em" w={['100%', '100%', 'auto']}>
           <FormControl isInvalid={!!errors.title}>
             <FormLabel htmlFor="title"> Title </FormLabel>
             <Input
@@ -91,7 +88,7 @@ export const WishForm = ({ uuid }: { uuid?: string }): JSX.Element => {
               placeholder="Card Name"
               variant="outline"
               bg="white"
-              w="25em"
+              w={['100%', '100%', '25em']}
               {...register('title', {
                 required: 'Title field is required',
               })}
@@ -144,7 +141,7 @@ export const WishForm = ({ uuid }: { uuid?: string }): JSX.Element => {
               )}
             />
           </FormControl>
-        </HStack>
+        </Stack>
         <Flex w="100%" flexDirection="column" gap="2em">
           <FormControl>
             <FormLabel htmlFor="link"> Wish link </FormLabel>

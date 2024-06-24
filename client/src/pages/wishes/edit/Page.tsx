@@ -1,4 +1,4 @@
-import { Container, Heading } from '@chakra-ui/react'
+import { Heading } from '@chakra-ui/react'
 import { useParams } from 'react-router-dom'
 import { WishForm } from '../form'
 import { Breadcrumb } from 'components'
@@ -7,7 +7,7 @@ export const Page = (): JSX.Element => {
   const { uuid } = useParams()
 
   return (
-    <Container minW="100%">
+    <>
       <Breadcrumb
         tree={[
           { path: '/wishes', name: 'Board' },
@@ -18,6 +18,6 @@ export const Page = (): JSX.Element => {
         Edit wish
       </Heading>
       <WishForm uuid={uuid} />
-    </Container>
+    </>
   )
 }

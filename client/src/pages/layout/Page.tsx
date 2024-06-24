@@ -1,4 +1,4 @@
-import { Box, Container } from '@chakra-ui/react'
+import { Container } from '@chakra-ui/react'
 import { Outlet } from 'react-router-dom'
 import { GlobalLoader, HeaderBar } from 'components'
 import { useFetchUsersMeQuery } from 'api/usersApi'
@@ -14,12 +14,12 @@ export const Page = (): JSX.Element => {
       {isLoading ? (
         <GlobalLoader />
       ) : (
-        <Box minH="100vh">
+        <>
           <HeaderBar />
-          <Container as="main" minW="container.lg" padding="2em">
+          <Container as="main" minW={['container.sm', 'container.md', 'container.lg']} padding="2em">
             <Outlet />
           </Container>
-        </Box>
+        </>
       )}
     </>
   )
